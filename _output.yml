@@ -1,0 +1,30 @@
+bookdown::gitbook:
+  css: ['style.css', 'dlplaybook.css']
+  config:
+    sharing: null
+    toc:
+      before: |
+        <li><a href="./">딥러닝 공략집 with R</a></li>
+      after: |
+        <li><a href="https://github.com/statisticsplaybook/r-torch-playbook" target="blank">Published with bookdown</a></li>
+    edit: https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/%s
+    fontsettings: null
+    download: null
+  includes:
+    in_header: [hypothesis.html, googlesearch.html]
+# bookdown::pdf_book:
+#   includes:
+#     in_header: latex/preamble.tex
+#     before_body: latex/before_body.tex
+#     after_body: latex/after_body.tex
+#   keep_tex: true
+#   dev: "cairo_pdf"
+#   latex_engine: xelatex
+#   citation_package: natbib
+#   template: null
+#   pandoc_args: --top-level-division=chapter
+#   toc_depth: 3
+#   toc_unnumbered: false
+#   toc_appendix: true
+#   quote_footer: ["\\VA{", "}{}"]
+#   highlight_bw: false
