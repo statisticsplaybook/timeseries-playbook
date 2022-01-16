@@ -13,3 +13,4 @@ scatter-plots
 fig:unnamed-chunk-12
 tsibble-그리고-fable-패키지-1
 chap2
+수정..-제발..
