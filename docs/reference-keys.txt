@@ -2,3 +2,11 @@ intro
 torch와의-첫만남
 tsibble-그리고-fable-패키지
 fpp3-패키지
+tsible-객체
+csv-파일로부터-tsibble-객체-만들기-연습
+time-plots
+tab:unnamed-chunk-8
+시계열-자료-구성-요소
+seasonal-plot
+fig:unnamed-chunk-11
+scatter-plots

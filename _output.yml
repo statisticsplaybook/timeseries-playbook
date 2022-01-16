@@ -4,7 +4,7 @@ bookdown::gitbook:
     sharing: null
     toc:
       before: |
-        <li><a href="./">딥러닝 공략집 with R</a></li>
+        <li><a href="./">시계열 공략집 with R</a></li>
       after: |
         <li><a href="https://github.com/statisticsplaybook/r-torch-playbook" target="blank">Published with bookdown</a></li>
     edit: https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/%s
