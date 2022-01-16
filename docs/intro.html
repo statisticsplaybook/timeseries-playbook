@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 시계열 첫걸음, 관련 패키지의 이해 | 시계열 공략집 with R</title>
+  <title>Chapter 1 시계열 첫걸음, 관련 패키지의 이해 | 시계열 공략집 with R</title>
   <meta name="description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 시계열 첫걸음, 관련 패키지의 이해 | 시계열 공략집 with R" />
+  <meta property="og:title" content="Chapter 1 시계열 첫걸음, 관련 패키지의 이해 | 시계열 공략집 with R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="statisticsplaybook/r-torch-playbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 시계열 첫걸음, 관련 패키지의 이해 | 시계열 공략집 with R" />
+  <meta name="twitter:title" content="Chapter 1 시계열 첫걸음, 관련 패키지의 이해 | 시계열 공략집 with R" />
   
   <meta name="twitter:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="chap2.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -71,6 +71,70 @@
 <script data-ad-client="ca-pub-3877288275353516" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -107,9 +171,9 @@
 <li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#seasonal-plot"><i class="fa fa-check"></i><b>1.7</b> Seasonal plot</a></li>
 <li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#scatter-plots"><i class="fa fa-check"></i><b>1.8</b> Scatter plots</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html#intro"><i class="fa fa-check"></i><b>2</b> 시계열 첫걸음, 관련 패키지의 이해</a>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> 시계열 첫걸음2, 관련 패키지의 이해</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#tsibble-그리고-fable-패키지-1"><i class="fa fa-check"></i><b>2.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
+<li class="chapter" data-level="2.1" data-path="chap2.html"><a href="chap2.html#tsibble-그리고-fable-패키지-1"><i class="fa fa-check"></i><b>2.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -132,12 +196,289 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> 시계열 첫걸음, 관련 패키지의 이해</h1>
-<div id="tsibble-그리고-fable-패키지-1" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> <code>tsibble</code> 그리고 <code>fable</code> 패키지</h2>
+<div id="intro" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> 시계열 첫걸음, 관련 패키지의 이해</h1>
+<div id="tsibble-그리고-fable-패키지" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> <code>tsibble</code> 그리고 <code>fable</code> 패키지</h2>
 <p>시계열과 관련 된 R 패키지는 정말 많이 있다. 그 중에서 가장 유명한 패키지는 <code>forecast</code> 패키지이다. <code>fpp</code> 2판에서 메인 패키지로 활용되었던 <code>forecast</code> 패키지는 예측성능이 좋기로 유명하다. 하지만 <code>forecast</code>는 base 패키지를 기반으로 짜여져있는 패키지라서 <code>fpp</code> 3판에서 사용하게 될 패키지는 <code>tsibble</code>과 <code>fable</code> 패키지를 주로 사용하게 될 예정이다. 두 패키지 모두 <code>tidyverse</code>스러운 코딩과 잘 맞는 함수들을 지원하는 것이 특징이다.</p>
-<p>gkgkgkgkgk</p>
+<div class="rmdwarning">
+<h3 id="주의하기">
+주의하기
+</h3>
+<p>
+<code>forecast</code> 패키지는 다른 언어를 사용하는 커뮤니티에도 알려질 정도로 잘 짜여진 패키지이다. 꼭 한번은 사용법을 알아둘 것을 추천한다. <a href="https://otexts.com/fppkr/"><code>fpp</code> 2판의 한글판</a>을 봐두는 것도 나쁘지 않는 선택이다.
+</p>
+</div>
+</div>
+<div id="fpp3-패키지" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> <code>fpp3</code> 패키지</h2>
+<p><code>fpp3</code> 패키지는 Hyndman 교수와 Athanasopoulos 교수가 지은 Forecasting: principles and practice 3판에 딸림 R 패키지라고 생각하면 된다. <code>fpp3</code> 패키지를 로드시키면 앞에서 말했던 <code>tsibble</code>과 <code>fable</code> 패키지가 같이 로드된다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span></code></pre></div>
+</div>
+<div id="tsible-객체" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> tsible 객체</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tsibble</span>(</span>
+<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2015</span><span class="sc">:</span><span class="dv">2019</span>,</span>
+<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">observation =</span> <span class="fu">c</span>(<span class="dv">123</span>, <span class="dv">39</span>, <span class="dv">78</span>, <span class="dv">52</span>, <span class="dv">110</span>),</span>
+<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> year</span>
+<span id="cb2-5"><a href="intro.html#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="intro.html#cb2-6" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 5 x 2 [1Y]
+#&gt;    year observation
+#&gt;   &lt;int&gt;       &lt;dbl&gt;
+#&gt; 1  2015         123
+#&gt; 2  2016          39
+#&gt; 3  2017          78
+#&gt; 4  2018          52
+#&gt; 5  2019         110</code></pre>
+<p><code>tibble</code> 객체를 확장 시킨 <code>tidyverse</code>용 데이터 프레임. y변수를 선언할 때 어떤 열을 <code>index</code>로 할 것인지 선언해 줌. <code>[1Y]</code>라는 것을 보고 관찰값이 1년 단위 관측되었다는 것을 알 수 있음.</p>
+<p><code>tsibbledata</code> 패키지에 들어있는 <code>olympic_running</code> 데이터를 살펴보자.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a>olympic_running</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 312 x 4 [4Y]
+#&gt; # Key:       Length, Sex [14]
+#&gt;     Year Length Sex    Time
+#&gt;    &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+#&gt;  1  1896    100 men    12  
+#&gt;  2  1900    100 men    11  
+#&gt;  3  1904    100 men    11  
+#&gt;  4  1908    100 men    10.8
+#&gt;  5  1912    100 men    10.8
+#&gt;  6  1916    100 men    NA  
+#&gt;  7  1920    100 men    10.8
+#&gt;  8  1924    100 men    10.6
+#&gt;  9  1928    100 men    10.8
+#&gt; 10  1932    100 men    10.3
+#&gt; # ... with 302 more rows</code></pre>
+<p>위의 결과값을 보면 key 변수가 2개 (Length, Sex) 로 설정이 되어있고, <code>[14]</code>라는 표시가 보인다. 이것은 두 개의 변수가 갖는 unique한 값들로 조합 할 수 있는 경우의 수가 14가지 경우가 된다는 것을 의미한다.</p>
+<p>다음을 살펴보자.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" aria-hidden="true" tabindex="-1"></a>olympic_running <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="intro.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Length)</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 7 x 1
+#&gt;   Length
+#&gt;    &lt;int&gt;
+#&gt; 1    100
+#&gt; 2    200
+#&gt; 3    400
+#&gt; 4    800
+#&gt; 5   1500
+#&gt; 6   5000
+#&gt; 7  10000</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1" aria-hidden="true" tabindex="-1"></a>olympic_running <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="intro.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Sex)</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 2 x 1
+#&gt;   Sex  
+#&gt;   &lt;chr&gt;
+#&gt; 1 men  
+#&gt; 2 women</code></pre>
+</div>
+<div id="csv-파일로부터-tsibble-객체-만들기-연습" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> csv 파일로부터 <code>tsibble</code> 객체 만들기 연습</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1" aria-hidden="true" tabindex="-1"></a>prison <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://OTexts.com/fpp3/extrafiles/prison_population.csv&quot;</span>)</span>
+<span id="cb10-2"><a href="intro.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(prison)</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 6 x 6
+#&gt;   Date       State Gender Legal     Indigenous Count
+#&gt;   &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;
+#&gt; 1 2005-03-01 ACT   Female Remanded  ATSI           0
+#&gt; 2 2005-03-01 ACT   Female Remanded  Non-ATSI       2
+#&gt; 3 2005-03-01 ACT   Female Sentenced ATSI           0
+#&gt; 4 2005-03-01 ACT   Female Sentenced Non-ATSI       5
+#&gt; 5 2005-03-01 ACT   Male   Remanded  ATSI           7
+#&gt; 6 2005-03-01 ACT   Male   Remanded  Non-ATSI      58</code></pre>
+<p><code>prison</code> 변수에는 csv 파일로부터 불러온 시계열 정보가 들어있다. 날짜정보가 들어있는 첫번째 열을 인덱스로, count 정보를 제외한 나머지 열들을 key로 설정하여 tsibble로 바꿔보도록 하자.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1" aria-hidden="true" tabindex="-1"></a>prison <span class="sc">%&lt;&gt;%</span> </span>
+<span id="cb12-2"><a href="intro.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="intro.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">quarter =</span> <span class="fu">yearquarter</span>(date),</span>
+<span id="cb12-4"><a href="intro.html#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">.keep =</span> <span class="st">&quot;unused&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="intro.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">key =</span> state<span class="sc">:</span>indigenous,</span>
+<span id="cb12-6"><a href="intro.html#cb12-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">index =</span> quarter)</span>
+<span id="cb12-7"><a href="intro.html#cb12-7" aria-hidden="true" tabindex="-1"></a>prison</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 3,072 x 6 [1Q]
+#&gt; # Key:       state, gender, legal, indigenous [64]
+#&gt;    state gender legal    indigenous count quarter
+#&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;   &lt;qtr&gt;
+#&gt;  1 ACT   Female Remanded ATSI           0 2005 Q1
+#&gt;  2 ACT   Female Remanded ATSI           1 2005 Q2
+#&gt;  3 ACT   Female Remanded ATSI           0 2005 Q3
+#&gt;  4 ACT   Female Remanded ATSI           0 2005 Q4
+#&gt;  5 ACT   Female Remanded ATSI           1 2006 Q1
+#&gt;  6 ACT   Female Remanded ATSI           1 2006 Q2
+#&gt;  7 ACT   Female Remanded ATSI           1 2006 Q3
+#&gt;  8 ACT   Female Remanded ATSI           0 2006 Q4
+#&gt;  9 ACT   Female Remanded ATSI           0 2007 Q1
+#&gt; 10 ACT   Female Remanded ATSI           1 2007 Q2
+#&gt; # ... with 3,062 more rows</code></pre>
+<p>분기별 데이터를 <code>yearquarter</code> 사용해서 설정해줬던 것 처럼 다음 표과 같이 여러 시간 간격을 설정할 수 있는 함수를 <code>tsibble</code> 패키지에서는 제공한다. 자신의 데이터에 맞는 시간 간격을 설정해서 사용하자.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-8">표 1.1: </span>tsibble 객체에 부여할 수 있는 시간 간격 종류들
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Frequency
+</th>
+<th style="text-align:left;">
+Function
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Annual
+</td>
+<td style="text-align:left;">
+start:end
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Quarterly
+</td>
+<td style="text-align:left;">
+yearquarter()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Monthly
+</td>
+<td style="text-align:left;">
+yearmonth()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Weekly
+</td>
+<td style="text-align:left;">
+yearweek()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Daily
+</td>
+<td style="text-align:left;">
+as_date(), ymd()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sub-daily
+</td>
+<td style="text-align:left;">
+as_datetime(), ymd_hms()
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="time-plots" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Time plots</h2>
+<p>시계열에서 제일 기본적인 그래프이다. 시간에 따라서 우리가 보고싶은 반응 변수값을 그려준다. 앞에서 정의한 <code>prison</code> 시계열 데이터에서 특정 그룹의 시간에 따른 죄수 수의 변화를 그려보자.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" aria-hidden="true" tabindex="-1"></a>prison <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="intro.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">&quot;ACT&quot;</span>, gender <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb14-3"><a href="intro.html#cb14-3" aria-hidden="true" tabindex="-1"></a>         legal <span class="sc">==</span><span class="st">&quot;Remanded&quot;</span>, indigenous <span class="sc">==</span> <span class="st">&quot;ATSI&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="intro.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(count) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="intro.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;시간에 따른 죄수 인구의 변화&quot;</span>,</span>
+<span id="cb14-6"><a href="intro.html#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;죄수 (명)&quot;</span>,</span>
+<span id="cb14-7"><a href="intro.html#cb14-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;시간 (분기)&quot;</span>)</span></code></pre></div>
+<p><img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="시계열-자료-구성-요소" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> 시계열 자료 구성 요소</h2>
+<ul>
+<li>추세 (Trend): 전반적인 방향성의 존재 유무</li>
+<li>계절성 (Seasonal): 계절에 따른 반복유무 (고정 빈도)</li>
+<li>주기성(cycle): 고정된 빈도가 아닌 증가, 감소 형태</li>
+</ul>
+</div>
+<div id="seasonal-plot" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> Seasonal plot</h2>
+<p><code>vic_elec</code> 데이터는 호주의 빅토리아 주의 전력 수요량을 30분 단위로 기록한 데이터이다.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="intro.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(vic_elec)</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 6 x 5 [30m] &lt;Australia/Melbourne&gt;
+#&gt;   Time                Demand Temperature Date       Holiday
+#&gt;   &lt;dttm&gt;               &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;     &lt;lgl&gt;  
+#&gt; 1 2012-01-01 00:00:00  4383.        21.4 2012-01-01 TRUE   
+#&gt; 2 2012-01-01 00:30:00  4263.        21.0 2012-01-01 TRUE   
+#&gt; 3 2012-01-01 01:00:00  4049.        20.7 2012-01-01 TRUE   
+#&gt; 4 2012-01-01 01:30:00  3878.        20.6 2012-01-01 TRUE   
+#&gt; 5 2012-01-01 02:00:00  4036.        20.4 2012-01-01 TRUE   
+#&gt; 6 2012-01-01 02:30:00  3866.        20.2 2012-01-01 TRUE</code></pre>
+<p>이 자료에서 하루를 기준으로 전력 수요가 어떠한 패턴으로 움직이는지 보고싶을 때 계절성 그래프 (Seasonal plot)가 유용함.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="intro.html#cb17-1" aria-hidden="true" tabindex="-1"></a>vic_elec <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="intro.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="intro.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="intro.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_season</span>(demand, <span class="at">period =</span> <span class="st">&quot;day&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="intro.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="intro.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;MWh&quot;</span>, <span class="at">title=</span><span class="st">&quot;Electricity demand: Victoria&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-11"></span>
+<img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-11-1.png" alt="하루 기준 전력 수요량의 변화 패턴" width="672" />
+<p class="caption">
+그림 1.1: 하루 기준 전력 수요량의 변화 패턴
+</p>
+</div>
+<p>한 주를 기준으로 그려보면 새로운 패턴을 발견할 수 있다.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro.html#cb18-1" aria-hidden="true" tabindex="-1"></a>vic_elec <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="intro.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="intro.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="intro.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_season</span>(demand, <span class="at">period =</span> <span class="st">&quot;week&quot;</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="intro.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="intro.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;MWh&quot;</span>, <span class="at">title=</span><span class="st">&quot;Electricity demand: Victoria&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-12"></span>
+<img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-12-1.png" alt="한주 기준 전력 수요량의 변화 패턴" width="672" />
+<p class="caption">
+그림 1.2: 한주 기준 전력 수요량의 변화 패턴
+</p>
+</div>
+<div class="rmdnote">
+<h3 id="혼자-학습하기">
+혼자 학습하기
+</h3>
+<p>
+연도를 기준으로 계절성 그래프를 그려보고, 계절에 따른 전력 수요량 패턴을 해석해보자.
+</p>
+</div>
+</div>
+<div id="scatter-plots" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> Scatter plots</h2>
+<p>전력 수요량 데이터의 경우 전력 수요량을 나타내는 <code>demand</code> 변수가 존재하고, 이에 대응하는 <code>temperature</code> 변수가 존재한다. 두 개의 변수를 독립적으로 시계열 데이터로 보고 시간 그래프를 그려보면 다음과 같을 것이다.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="intro.html#cb19-1" aria-hidden="true" tabindex="-1"></a>vic_elec <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="intro.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="intro.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="intro.html#cb19-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">autoplot</span>(demand) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="intro.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;GW&quot;</span>,</span>
+<span id="cb19-6"><a href="intro.html#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Half-hourly electricity demand: Victoria&quot;</span>)</span></code></pre></div>
+<p><img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="intro.html#cb20-1" aria-hidden="true" tabindex="-1"></a>vic_elec <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="intro.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="intro.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="intro.html#cb20-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">autoplot</span>(temperature) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="intro.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Degrees Celsius&quot;</span>,</span>
+<span id="cb20-6"><a href="intro.html#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Half-hourly electricity demand: Victoria&quot;</span>)</span></code></pre></div>
+<p><img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>하지만, 위의 두 그래프를 시간 변수를 무시한 채 산점도를 그려보면 어떻게 될까? 다음과 같이 산점도를 그릴 경우 온도와 전력 수요량 간의 새로운 패턴을 발견 할 수 있다.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="intro.html#cb21-1" aria-hidden="true" tabindex="-1"></a>vic_elec <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="intro.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="intro.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="intro.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> demand)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="intro.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a href="intro.html#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Temperature (degrees Celsius)&quot;</span>,</span>
+<span id="cb21-7"><a href="intro.html#cb21-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Electricity demand (GW)&quot;</span>)</span></code></pre></div>
+<p><img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>전력수요량의 경우 온도가 낮은 경우와 높은 경우 증가하는 2차 곡선 형태의 패턴을 보인다. 이것은 겨울철 난방과 여름철 냉방을 위한 전력 수요에 기인한 것으로 보인다.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="intro.html#cb22-1" aria-hidden="true" tabindex="-1"></a>prison <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="intro.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="intro.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="intro.html#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> quarter, <span class="at">y =</span> count)) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="intro.html#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="intro.html#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(state), <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="intro.html#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Australian prison population by states&quot;</span>,</span>
+<span id="cb22-8"><a href="intro.html#cb22-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span> <span class="st">&quot;population&quot;</span>)</span></code></pre></div>
+<p><img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>dfsdfasdf</p>
 
 </div>
 </div>
@@ -146,8 +487,8 @@
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -164,7 +505,7 @@ gitbook.start({
 "sharing": null,
 "fontsettings": null,
 "edit": {
-"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/02-mychapter.Rmd",
+"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/01-intro-to-tsibble.Rmd",
 "text": "Edit"
 },
 "history": {
