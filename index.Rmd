@@ -8,14 +8,14 @@ documentclass: book
 bibliography: [reference.bib]
 biblio-style: apalike
 link-citations: yes
-image: "./image/deeplearning-playbook.png"
+image: "./image/timeseries-playbook.png"
 github-repo: statisticsplaybook/r-torch-playbook
 description: "복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집"
 ---
 
 # 들어가며 {.unnumbered}
 
-![](./image/deeplearning-playbook.png)
+![](./image/timeseries-playbook.png)
 
 슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다! 많은 내용은 다음의 R 시계열 교과서인  [Forecasting: Principles and Practice (이하 `fpp3`)](https://otexts.com/fpp3/) 책을 기반으로 하고 있으나, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다. 
 
