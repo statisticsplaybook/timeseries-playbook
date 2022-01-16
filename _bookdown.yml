@@ -17,4 +17,5 @@ output_dir: docs
 download: no
 rmd_files: ["index.Rmd",
             "01-intro-to-tsibble.Rmd",
+            "03-Chapter3.Rmd",
             "references.Rmd"]
