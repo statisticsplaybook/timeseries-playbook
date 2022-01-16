@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
-  <meta name="github-repo" content="statisticsplaybook/r-torch-playbook" />
+  <meta name="github-repo" content="statisticsplaybook/timeseries-playbook" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="시계열 공략집 with R" />
@@ -24,7 +24,7 @@
 <meta name="author" content="슬기로운통계생활" />
 
 
-<meta name="date" content="2022-01-15" />
+<meta name="date" content="2022-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -136,6 +136,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="dlplaybook.css" type="text/css" />
@@ -171,14 +193,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#seasonal-plot"><i class="fa fa-check"></i><b>1.7</b> Seasonal plot</a></li>
 <li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#scatter-plots"><i class="fa fa-check"></i><b>1.8</b> Scatter plots</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> 시계열 첫걸음2, 관련 패키지의 이해</a>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> 시계열 분해의 이해</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="chap2.html"><a href="chap2.html#tsibble-그리고-fable-패키지-1"><i class="fa fa-check"></i><b>2.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
-<li class="chapter" data-level="2.2" data-path="chap2.html"><a href="chap2.html#수정..-제발.."><i class="fa fa-check"></i><b>2.2</b> 수정.. 제발..</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/statisticsplaybook/r-torch-playbook" target="blank">Published with bookdown</a></li>
+<li><a href="https://github.com/statisticsplaybook/timeseries-playbook" target="blank">관련 깃허브 바로가기</a></li>
 
 </ul>
 
@@ -200,12 +221,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">시계열 공략집 with R</h1>
 <p class="author"><em><a href="https://www.youtube.com/c/statisticsplaybook">슬기로운통계생활</a></em></p>
-<p class="date"><em>2022-01-15</em></p>
+<p class="date"><em>2022-01-16</em></p>
 </div>
 <div id="들어가며" class="section level1 unnumbered">
 <h1>들어가며</h1>
 <p><img src="image/timeseries-playbook.png" /></p>
-<p>슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다! 많은 내용은 다음의 R 시계열 교과서인 <a href="https://otexts.com/fpp3/">Forecasting: Principles and Practice (이하 <code>fpp3</code>)</a> 책을 기반으로 하고 있으나, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다.</p>
+<p>슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다!</p>
+<p>본 교재의 많은 내용은 다음 두 권의 R 시계열 교과서를 기반으로 하고 있습니다.</p>
+<ul>
+<li>주교재 - Forecasting: Principles and Practice (이하 <code>fpp3</code>, <span class="citation"><a href="#ref-hyndman2018forecasting" role="doc-biblioref">Hyndman and Athanasopoulos</a> (<a href="#ref-hyndman2018forecasting" role="doc-biblioref">2018</a>)</span>)<br />
+실습 위주의 R 코드가 많은 책입니다. R 코드를 따라 치면서 시계열 입문하기 쉽게 되어있는 책이라서 선정하였습니다.
+<ul>
+<li><a href="https://amzn.to/3A0trIZ">아마존 구매</a></li>
+<li><a href="https://otexts.com/fpp3/">온라인 페이지</a></li>
+</ul></li>
+<li>부교재 - Time Series Analysis
+With Applications in R <span class="citation">(<a href="#ref-cryer2008time" role="doc-biblioref">Cryer and Chan 2008</a>)</span><br />
+주교재에서 부족한 이론이 잘 채워져있는 책이고, 제가 수리 통계를 배웠던 챈 교수님이 쓰신 책이라서 선정하였습니다.
+<ul>
+<li><a href="https://amzn.to/3rqi3lw">아마존 구매</a></li>
+</ul></li>
+</ul>
+<p>또한 전반적인 내용이 위의 두 교재를 기반으로 작성이 되었지만, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다.</p>
 <div id="공략집-사용법" class="section level2 unnumbered">
 <h2>공략집 사용법</h2>
 <ul>
@@ -242,6 +279,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-cryer2008time" class="csl-entry">
+Cryer, Jonathan D, and Kung-Sik Chan. 2008. <em>Time Series Analysis: With Applications in r</em>. Vol. 2. Springer.
+</div>
+<div id="ref-hyndman2018forecasting" class="csl-entry">
+Hyndman, Rob J, and George Athanasopoulos. 2018. <em>Forecasting: Principles and Practice</em>. OTexts.
+</div>
+</div>
             </section>
 
           </div>
@@ -265,7 +311,7 @@ gitbook.start({
 "sharing": null,
 "fontsettings": null,
 "edit": {
-"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/index.Rmd",
+"link": "https://github.com/statisticsplaybook/timeseries-playbook/edit/main/index.Rmd",
 "text": "Edit"
 },
 "history": {

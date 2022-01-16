@@ -1,7 +1,7 @@
 ---
 title: "시계열 공략집 with R"
 author: "[슬기로운통계생활](https://www.youtube.com/c/statisticsplaybook)"
-date: "2022-01-15"
+date: "2022-01-16"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -9,7 +9,7 @@ bibliography: [reference.bib]
 biblio-style: apalike
 link-citations: yes
 image: "./image/timeseries-playbook.png"
-github-repo: statisticsplaybook/r-torch-playbook
+github-repo: statisticsplaybook/timeseries-playbook
 description: "복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집"
 ---
 
@@ -17,7 +17,21 @@ description: "복잡한 시계열 공부, 차근차근 공부해서 정복해보
 
 ![](./image/timeseries-playbook.png)
 
-슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다! 많은 내용은 다음의 R 시계열 교과서인  [Forecasting: Principles and Practice (이하 `fpp3`)](https://otexts.com/fpp3/) 책을 기반으로 하고 있으나, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다. 
+슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다! 
+
+본 교재의 많은 내용은 다음 두 권의 R 시계열 교과서를 기반으로 하고 있습니다.
+
+* 주교재 - Forecasting: Principles and Practice (이하 `fpp3`, @hyndman2018forecasting)  
+  실습 위주의 R 코드가 많은 책입니다. R 코드를 따라 치면서 시계열 입문하기 쉽게 되어있는 책이라서 선정하였습니다.
+  * [아마존 구매](https://amzn.to/3A0trIZ)
+  * [온라인 페이지](https://otexts.com/fpp3/)
+  
+* 부교재 - Time Series Analysis
+With Applications in R [@cryer2008time]  
+  주교재에서 부족한 이론이 잘 채워져있는 책이고, 제가 수리 통계를 배웠던 챈 교수님이 쓰신 책이라서 선정하였습니다.
+  * [아마존 구매](https://amzn.to/3rqi3lw)
+  
+또한 전반적인 내용이 위의 두 교재를 기반으로 작성이 되었지만, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다.
 
 ## 공략집 사용법 {.unnumbered}
 
