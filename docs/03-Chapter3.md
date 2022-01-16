@@ -9,4 +9,4 @@
 <p><code>forecast</code> 패키지는 다른 언어를 사용하는 커뮤니티에도 알려질 정도로 잘 짜여진 패키지이다. 꼭 한번은 사용법을 알아둘 것을 추천한다. <a href="https://otexts.com/fppkr/"><code>fpp</code> 2판의 한글판</a>을 봐두는 것도 나쁘지 않는 선택이다.</p>
 </div>
 
-Chapter 3 (tested by Jongjin)
+Chapter 3 (tested by Jongjin Kim)

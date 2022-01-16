@@ -158,7 +158,8 @@ prison
 분기별 데이터를 `yearquarter` 사용해서 설정해줬던 것 처럼 다음 표과 같이 여러 시간 간격을 설정할 수 있는 함수를 `tsibble` 패키지에서는 제공한다. 자신의 데이터에 맞는 시간 간격을 설정해서 사용하자.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>(\#tab:unnamed-chunk-8)tsibble 객체에 부여할 수 있는 시간 간격 종류들</caption>
+<caption>(\#tab:unnamed-chunk-8)tsibble <u><u><u> <u><u><u> <u> <u><u> <u><u> <u><u> <u><u><u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u></u>
+</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Frequency </th>
@@ -252,8 +253,8 @@ vic_elec %>%
 ```
 
 <div class="figure">
-<img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-11-1.png" alt="하루 기준 전력 수요량의 변화 패턴" width="672" />
-<p class="caption">(\#fig:unnamed-chunk-11)하루 기준 전력 수요량의 변화 패턴</p>
+<img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-11-1.png" alt="&lt;U+D558&gt;&lt;U+B8E8&gt; &lt;U+AE30&gt;&lt;U+C900&gt; &lt;U+C804&gt;&lt;U+B825&gt; &lt;U+C218&gt;&lt;U+C694&gt;&lt;U+B7C9&gt;&lt;U+C758&gt; &lt;U+BCC0&gt;&lt;U+D654&gt; &lt;U+D328&gt;&lt;U+D134&gt;" width="672" />
+<p class="caption">(\#fig:unnamed-chunk-11)<U+D558><U+B8E8> <U+AE30><U+C900> <U+C804><U+B825> <U+C218><U+C694><U+B7C9><U+C758> <U+BCC0><U+D654> <U+D328><U+D134></p>
 </div>
 
 한 주를 기준으로 그려보면 새로운 패턴을 발견할 수 있다.
@@ -269,8 +270,8 @@ vic_elec %>%
 ```
 
 <div class="figure">
-<img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-12-1.png" alt="한주 기준 전력 수요량의 변화 패턴" width="672" />
-<p class="caption">(\#fig:unnamed-chunk-12)한주 기준 전력 수요량의 변화 패턴</p>
+<img src="01-intro-to-tsibble_files/figure-html/unnamed-chunk-12-1.png" alt="&lt;U+D55C&gt;&lt;U+C8FC&gt; &lt;U+AE30&gt;&lt;U+C900&gt; &lt;U+C804&gt;&lt;U+B825&gt; &lt;U+C218&gt;&lt;U+C694&gt;&lt;U+B7C9&gt;&lt;U+C758&gt; &lt;U+BCC0&gt;&lt;U+D654&gt; &lt;U+D328&gt;&lt;U+D134&gt;" width="672" />
+<p class="caption">(\#fig:unnamed-chunk-12)<U+D55C><U+C8FC> <U+AE30><U+C900> <U+C804><U+B825> <U+C218><U+C694><U+B7C9><U+C758> <U+BCC0><U+D654> <U+D328><U+D134></p>
 </div>
 
 <div class="rmdnote">

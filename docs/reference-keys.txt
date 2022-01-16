@@ -10,3 +10,5 @@ tab:unnamed-chunk-8
 seasonal-plot
 fig:unnamed-chunk-11
 scatter-plots
+chapter3
+tsibble-그리고-fable-패키지-1
