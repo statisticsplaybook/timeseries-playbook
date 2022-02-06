@@ -1,7 +1,7 @@
 ---
 title: "시계열 공략집 with R"
 author: "[슬기로운통계생활](https://www.youtube.com/c/statisticsplaybook)"
-date: "2022-01-22"
+date: "2022-02-05"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
