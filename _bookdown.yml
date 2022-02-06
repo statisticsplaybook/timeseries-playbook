@@ -18,4 +18,5 @@ download: no
 rmd_files: ["index.Rmd",
             "01-intro-to-tsibble.Rmd",
             "02-mychapter.Rmd",
+            "03-time-series-decomposition.Rmd",
             "references.Rmd"]

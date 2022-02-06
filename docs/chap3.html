@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 시계열의 분해 | 시계열 공략집 with R</title>
+  <meta name="description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 시계열의 분해 | 시계열 공략집 with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  <meta name="github-repo" content="statisticsplaybook/r-torch-playbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 시계열의 분해 | 시계열 공략집 with R" />
+  
+  <meta name="twitter:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  
+
+<meta name="author" content="슬기로운통계생활" />
+
+
+<meta name="date" content="2022-02-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chap2.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script async defer src="https://hypothes.is/embed.js"></script>
+<meta name="google-site-verification" content="z9CiKKDExNMW8gi4-dN3X6zGa1-OXeSaIpjGFgXgHEg" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MYZBEL4H2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6MYZBEL4H2');
+</script>
+
+<script data-ad-client="ca-pub-3877288275353516" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="dlplaybook.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">시계열 공략집 with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>들어가며</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#공략집-사용법"><i class="fa fa-check"></i>공략집 사용법</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#설치하기"><i class="fa fa-check"></i>설치하기</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#기본-패키지"><i class="fa fa-check"></i>기본 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> 시계열 첫걸음, 관련 패키지의 이해</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#tsibble-그리고-fable-패키지"><i class="fa fa-check"></i><b>1.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#fpp3-패키지"><i class="fa fa-check"></i><b>1.2</b> <code>fpp3</code> 패키지</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#tsible-객체"><i class="fa fa-check"></i><b>1.3</b> tsible 객체</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#csv-파일로부터-tsibble-객체-만들기-연습"><i class="fa fa-check"></i><b>1.4</b> csv 파일로부터 <code>tsibble</code> 객체 만들기 연습</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#time-plots"><i class="fa fa-check"></i><b>1.5</b> Time plots</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#시계열-자료-구성-요소"><i class="fa fa-check"></i><b>1.6</b> 시계열 자료 구성 요소</a></li>
+<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#seasonal-plot"><i class="fa fa-check"></i><b>1.7</b> Seasonal plot</a></li>
+<li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#scatter-plots"><i class="fa fa-check"></i><b>1.8</b> Scatter plots</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> 시계열 첫걸음2, 관련 패키지의 이해</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chap2.html"><a href="chap2.html#tsibble-그리고-fable-패키지-1"><i class="fa fa-check"></i><b>2.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> 시계열의 분해</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chap3.html"><a href="chap3.html#시계열-조정-및-변환"><i class="fa fa-check"></i><b>3.1</b> 시계열 조정 및 변환</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="chap3.html"><a href="chap3.html#인구조정"><i class="fa fa-check"></i><b>3.1.1</b> 인구조정</a></li>
+<li class="chapter" data-level="3.1.2" data-path="chap3.html"><a href="chap3.html#물가조정"><i class="fa fa-check"></i><b>3.1.2</b> 물가조정</a></li>
+<li class="chapter" data-level="3.1.3" data-path="chap3.html"><a href="chap3.html#달력조정"><i class="fa fa-check"></i><b>3.1.3</b> 달력조정</a></li>
+<li class="chapter" data-level="3.1.4" data-path="chap3.html"><a href="chap3.html#수학적-변환"><i class="fa fa-check"></i><b>3.1.4</b> 수학적 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="chap3.html"><a href="chap3.html#시계열의-구성요소"><i class="fa fa-check"></i><b>3.2</b> 시계열의 구성요소</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chap3.html"><a href="chap3.html#모델-설정"><i class="fa fa-check"></i><b>3.2.1</b> 모델 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap3.html"><a href="chap3.html#이동평균에-대한-이해"><i class="fa fa-check"></i><b>3.3</b> 이동평균에 대한 이해</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chap3.html"><a href="chap3.html#m이-홀수인-경우"><i class="fa fa-check"></i><b>3.3.1</b> m이 홀수인 경우</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chap3.html"><a href="chap3.html#m이-짝수인-경우"><i class="fa fa-check"></i><b>3.3.2</b> m이 짝수인 경우</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chap3.html"><a href="chap3.html#가중평균"><i class="fa fa-check"></i><b>3.3.3</b> 가중평균</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap3.html"><a href="chap3.html#다양한-분해방법"><i class="fa fa-check"></i><b>3.4</b> 다양한 분해방법</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chap3.html"><a href="chap3.html#고전적-분해방법"><i class="fa fa-check"></i><b>3.4.1</b> 고전적 분해방법</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chap3.html"><a href="chap3.html#x11"><i class="fa fa-check"></i><b>3.4.2</b> X11</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chap3.html"><a href="chap3.html#seats"><i class="fa fa-check"></i><b>3.4.3</b> SEATS</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chap3.html"><a href="chap3.html#stl"><i class="fa fa-check"></i><b>3.4.4</b> STL</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/statisticsplaybook/r-torch-playbook" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">시계열 공략집 with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap3" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> 시계열의 분해</h1>
+<p>이 장의 학습목표는,
+<strong>고전적인 시계열 분해방법</strong>이 어떻게 계산되는지 이해하는 것이다.
+이는 최근에 사용되고 있는 다른 방법들의 근간이 되므로 제대로 이해할 필요가 있다.</p>
+<div id="시계열-조정-및-변환" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> 시계열 조정 및 변환</h2>
+<p>분석하고자 하는 문제에 따라서, 조정이 필요한 경우가 있다. 이런 과정은 왜곡되지 않은 시계열 정보를 추출 하기 위한 것이라고 생각하면 된다.</p>
+<div id="인구조정" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> 인구조정</h3>
+<p>우리가 분석하고 싶은 것이 나라별 성장 추이라고 해보자.
+어떤 변수를 선택하면 좋을까? 경제 성장률 추이, 나라별 GDP 총 생산 등이 있을 것이고, 1인당 GDP 등이 있다.
+이때 GDP 를 기준으로 보느냐, 1인당 GDP를 기준으로 보느냐에 따라서도 순위 차이가 꽤 있음을 확인 할 수 있다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="chap3.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KOSIS OECD_국가의_주요지표 자료 다운로드 </span></span>
+<span id="cb1-2"><a href="chap3.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://kosis.kr/statHtml/statHtml.do?orgId=101&amp;tblId=DT_2KAAG01</span></span>
+<span id="cb1-3"><a href="chap3.html#cb1-3" aria-hidden="true" tabindex="-1"></a>gdp_national<span class="ot">&lt;-</span> gdp_national <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="chap3.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year , <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="chap3.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year<span class="sc">:</span>CPI) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="chap3.html#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#mutate(year = year ) %&gt;% </span></span>
+<span id="cb1-7"><a href="chap3.html#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">key =</span> nation<span class="sc">:</span>CPI,</span>
+<span id="cb1-8"><a href="chap3.html#cb1-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">index =</span> year) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="chap3.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nation =</span> <span class="fu">as.factor</span>(nation)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href="chap3.html#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.numeric) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-11"><a href="chap3.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-12"><a href="chap3.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(nation) <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="chap3.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-14"><a href="chap3.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb1-15"><a href="chap3.html#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="chap3.html#cb1-16" aria-hidden="true" tabindex="-1"></a>gdp_national <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 10 x 10 [1Y]
+#&gt; # Key:       nation, total_GDP, per_GDP, GDP_growth, export, import, pop,
+#&gt; #   unemployment_rate, CPI [10]
+#&gt;     year nation     total_GDP per_GDP GDP_growth export import    pop
+#&gt;    &lt;int&gt; &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;int&gt;
+#&gt;  1  1990 그리스          97.9    9600        0     8105  19777  10226
+#&gt;  2  1990 네덜란드       318.    21291        4.2 131775 126098  14965
+#&gt;  3  1990 노르웨이       120.    28243        1.9  34047  27231   4247
+#&gt;  4  1990 뉴질랜드        45.5   13663        0.2   9488   9501   3398
+#&gt;  5  1990 덴마크         138.    26891        1.5  37037  33248   5141
+#&gt;  6  1990 독일          1772.    22304        5.3 410104 346153  79054
+#&gt;  7  1990 룩셈부르크      13.2   34645        5.3   6305   7596    382
+#&gt;  8  1990 미국          5963.    23889        1.9 393592 516987 252120
+#&gt;  9  1990 스웨덴         262.    30594        0.8  57507  54835   8567
+#&gt; 10  1990 스위스         266     39608        3.7  63784  69681   6653
+#&gt; # ... with 2 more variables: unemployment_rate &lt;dbl&gt;, CPI &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chap3.html#cb3-1" aria-hidden="true" tabindex="-1"></a>rank_gdp<span class="ot">&lt;-</span> gdp_national <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="chap3.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="chap3.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank_total_gdp =</span> <span class="fu">rank</span>(<span class="sc">-</span>total_GDP),</span>
+<span id="cb3-4"><a href="chap3.html#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">rank_per_gdp =</span> <span class="fu">rank</span>(<span class="sc">-</span>per_GDP)</span>
+<span id="cb3-5"><a href="chap3.html#cb3-5" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="chap3.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="chap3.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year,nation,<span class="fu">contains</span>(<span class="st">&quot;rank&quot;</span>))</span>
+<span id="cb3-8"><a href="chap3.html#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="chap3.html#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="chap3.html#cb3-10" aria-hidden="true" tabindex="-1"></a>rank_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb3-11"><a href="chap3.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span>rank_total_gdp , <span class="at">fill =</span> nation ))<span class="sc">+</span></span>
+<span id="cb3-12"><a href="chap3.html#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb3-13"><a href="chap3.html#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> rank_gdp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(nation <span class="sc">==</span><span class="st">&quot;한국&quot;</span>),<span class="at">color =</span> <span class="st">&quot;green&quot;</span>,<span class="at">size =</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb3-14"><a href="chap3.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;OECD 국가 내 GDP 순위&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="chap3.html#cb4-1" aria-hidden="true" tabindex="-1"></a>rank_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="chap3.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span>rank_per_gdp , <span class="at">fill =</span> nation ))<span class="sc">+</span></span>
+<span id="cb4-3"><a href="chap3.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb4-4"><a href="chap3.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> rank_gdp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(nation <span class="sc">==</span><span class="st">&quot;한국&quot;</span>),<span class="at">color =</span> <span class="st">&quot;green&quot;</span>,<span class="at">size =</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb4-5"><a href="chap3.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;OECD 국가 내 1인당 GDP 순위&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chap3.html#cb5-1" aria-hidden="true" tabindex="-1"></a>rank_gdp <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="chap3.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">&lt;=</span><span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="chap3.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nation <span class="sc">==</span> <span class="st">&quot;한국&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="chap3.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">&quot;rank&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="chap3.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span>value , <span class="at">color =</span> name ))<span class="sc">+</span></span>
+<span id="cb5-6"><a href="chap3.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb5-7"><a href="chap3.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span><span class="st">&quot;Rank&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chap3.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터가 OECD 가입국이라 우리나라보다 GDP가 높은 중국, 인도 등 없는 나라가 있습니다.</span></span></code></pre></div>
+<p>1990년에서 부터 2019년 까지의 결과를 봤을때 OECD회원국 중, GDP의 순위는 높아졌지만,
+1인당 GDP의 순위는 낮아진 것을 확인 할 수 있다.</p>
+<p>인구 조정에 따라 결과가 달라지는 것을 확인했다. 이 경우에는 물론 분석 과제에 따라
+인구 조정을 하지 않은 총 GDP를 사용 할 수도 있을 것이다.</p>
+<p>다른 예시로, 나라별 의료체계 수준을 비교하려면, 총 병원수를 그 나라의 인구로 나눠
+평균적인 밀도를 비교하는 것이 더 합리적일 수 있다.</p>
+</div>
+<div id="물가조정" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> 물가조정</h3>
+<p>위의 데이터를 통해 더 확인해 보자. 변수 중, CPI(Consumer Price Index)라는 것이 있는데,
+이는 기준년도를 100으로 뒀을때 그 해의 소비자 물가지수이다. 이를 통해 수십년 전의 물건 가격들을 현재 물가 기준으로 하여 계산할 수 있고 무역수지가 물가에 비해 얼마나 올랐는지 확인 할 수 있다.
+만약 2010년이 기준년도이고, 2011년 CPI가 103이라면, 2010년에 비해 소비자 물가가 3% 증가한 것이다. 국가별 무역수지 추이를 CPI로 조정해 보면 아래와 같다.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chap3.html#cb7-1" aria-hidden="true" tabindex="-1"></a>gdp_national <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="chap3.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-3"><a href="chap3.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">trade_net_income =</span> (export <span class="sc">-</span> import) ,</span>
+<span id="cb7-4"><a href="chap3.html#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjusted_trade_net_income =</span> trade_net_income <span class="sc">/</span> CPI<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb7-5"><a href="chap3.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="chap3.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nation<span class="sc">==</span><span class="st">&quot;한국&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="chap3.html#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">&quot;net&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-8"><a href="chap3.html#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> year, <span class="at">y=</span> value ,<span class="at">color =</span> name))<span class="sc">+</span></span>
+<span id="cb7-9"><a href="chap3.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="달력조정" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> 달력조정</h3>
+<p>어떤 기업에서 월별 매출을 비교해 보려고 한다. 이때 단순히 총 매출을 비교한다면, 2월은 다른달에 비해
+낮게 나올 수도 있으므로 일별평균매출을 비교하는것이 더 합리적일 수 있다.<br />
+(주말, 공휴일이 많은달? 시차 조정? 등등 )</p>
+</div>
+<div id="수학적-변환" class="section level3" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> 수학적 변환</h3>
+<p>데이터가 시간에 따라 분산이 커지거나 작아질 때 사용한다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chap3.html#cb8-1" aria-hidden="true" tabindex="-1"></a>aus_production <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="chap3.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter, <span class="at">y =</span> Gas))<span class="sc">+</span></span>
+<span id="cb8-3"><a href="chap3.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb8-4"><a href="chap3.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-5"><a href="chap3.html#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;변환 전&quot;</span></span>
+<span id="cb8-6"><a href="chap3.html#cb8-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="chap3.html#cb9-1" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="chap3.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">features</span>(Gas, <span class="at">features =</span> guerrero) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="chap3.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(lambda_guerrero)</span>
+<span id="cb9-4"><a href="chap3.html#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="chap3.html#cb9-5" aria-hidden="true" tabindex="-1"></a>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="chap3.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">boxcox =</span> <span class="fu">box_cox</span>(Gas, lambda))</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 218 x 8 [1Q]
+#&gt;    Quarter  Beer Tobacco Bricks Cement Electricity   Gas boxcox
+#&gt;      &lt;qtr&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 1956 Q1   284    5225    189    465        3923     5   1.78
+#&gt;  2 1956 Q2   213    5178    204    532        4436     6   2.00
+#&gt;  3 1956 Q3   227    5297    208    561        4806     7   2.19
+#&gt;  4 1956 Q4   308    5681    197    570        4418     6   2.00
+#&gt;  5 1957 Q1   262    5577    187    529        4339     5   1.78
+#&gt;  6 1957 Q2   228    5651    214    604        4811     7   2.19
+#&gt;  7 1957 Q3   236    5317    227    603        5259     7   2.19
+#&gt;  8 1957 Q4   320    6152    222    582        4735     6   2.00
+#&gt;  9 1958 Q1   272    5758    199    554        4608     5   1.78
+#&gt; 10 1958 Q2   233    5641    229    620        5196     7   2.19
+#&gt; # ... with 208 more rows</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chap3.html#cb11-1" aria-hidden="true" tabindex="-1"></a>aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="chap3.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="fu">box_cox</span>(Gas, lambda)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="chap3.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb11-4"><a href="chap3.html#cb11-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> latex2exp<span class="sc">::</span><span class="fu">TeX</span>(<span class="fu">paste0</span>(</span>
+<span id="cb11-5"><a href="chap3.html#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Transformed gas production with $</span><span class="sc">\\</span><span class="st">lambda$ = &quot;</span>,</span>
+<span id="cb11-6"><a href="chap3.html#cb11-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">round</span>(lambda,<span class="dv">2</span>))))</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p>사전에 이런 조정 없이 분해를 하게 되면 실제 데이터가 함축하고 있는 의미를 제대로 잡아내지 못할 수
+있고 예측 오차가 커지게 될 것이다. 따라서 다음 단계로 가기 전에 내가 분석하고 싶은 변수가 조정이
+필요한지 짚고 넘어갈 필요가 있다.</p>
+</div>
+</div>
+<div id="시계열의-구성요소" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> 시계열의 구성요소</h2>
+<p>각각의 관측치 <span class="math inline">\(y_{t}\)</span> 는 <span class="math inline">\(S_{t}\)</span> , <span class="math inline">\(T_{t}\)</span>, <span class="math inline">\(R_{t}\)</span> 의 구성요소로 나누어 볼 수 있다.</p>
+<ul>
+<li><p><span class="math inline">\(T_{t}\)</span> : 추세-주기(Trend-cycle) 구성요소</p></li>
+<li><p><span class="math inline">\(S_{t}\)</span> : 계절(Seasonal) 구성요소</p></li>
+<li><p><span class="math inline">\(R_{t}\)</span> : 관측치 <span class="math inline">\(y_{t}\)</span>에서 위 두가지 요소를 뺀 나머지 부분이다.</p></li>
+</ul>
+<div id="모델-설정" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> 모델 설정</h3>
+<p><span class="math display">\[
+y_{t}=S_{t}+T_{t}+R_{t}
+\]</span>
+<span class="math display">\[
+y_{t}=S_{t}\times T_{t}\times R_{t}
+\]</span></p>
+<p>위와 같이 관측치를 구성요소들의 합으로 분해할 것인지, 곱으로 분해할 것인지 2가지 방법을 고려할 수 있다.</p>
+<p>계절 변동의 크기 또는 추세 주기 변동이 시간에 따라 달라지지 않는 경우 가법 분해가 가장 적절하다. 계절 패턴의 변동 또는 추세 주기 변동이 시간이 흐르면서 변하는 것으로 나타나면 곱셈 분해가 더 적절하다.</p>
+<p>먼저, 각각의 요소가 어떻게 분해되는지 살펴보자</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chap3.html#cb12-1" aria-hidden="true" tabindex="-1"></a>us_retail_employment <span class="ot">&lt;-</span> us_employment <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="chap3.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Month) <span class="sc">&gt;=</span> <span class="dv">1990</span>, Title <span class="sc">==</span> <span class="st">&quot;Retail Trade&quot;</span>)</span>
+<span id="cb12-3"><a href="chap3.html#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="chap3.html#cb12-4" aria-hidden="true" tabindex="-1"></a>classical_decomp<span class="ot">&lt;-</span> us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="chap3.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb12-6"><a href="chap3.html#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">classical_decomposition</span>(Employed , <span class="at">type =</span> <span class="st">&quot;additive&quot;</span>) <span class="co">#Employed ~ season(7)</span></span>
+<span id="cb12-7"><a href="chap3.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="chap3.html#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span> <span class="fu">as_tsibble</span>()</span>
+<span id="cb12-9"><a href="chap3.html#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="chap3.html#cb12-10" aria-hidden="true" tabindex="-1"></a>classical_decomp</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 357 x 8 [1M]
+#&gt; # Key:       Series_ID, .model [1]
+#&gt;    Series_ID     .model      Month Employed  trend seasonal random season_adjust
+#&gt;    &lt;chr&gt;         &lt;chr&gt;       &lt;mth&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;
+#&gt;  1 CEU4200000001 &quot;classic~  1990 1   13256.    NA    -75.5   NA           13331.
+#&gt;  2 CEU4200000001 &quot;classic~  1990 2   12966.    NA   -273.    NA           13239.
+#&gt;  3 CEU4200000001 &quot;classic~  1990 3   12938.    NA   -253.    NA           13191.
+#&gt;  4 CEU4200000001 &quot;classic~  1990 4   13012.    NA   -190.    NA           13203.
+#&gt;  5 CEU4200000001 &quot;classic~  1990 5   13108.    NA    -88.9   NA           13197.
+#&gt;  6 CEU4200000001 &quot;classic~  1990 6   13183.    NA    -10.4   NA           13193.
+#&gt;  7 CEU4200000001 &quot;classic~  1990 7   13170. 13178.   -13.3    5.65        13183.
+#&gt;  8 CEU4200000001 &quot;classic~  1990 8   13160. 13161.    -9.99   8.80        13169.
+#&gt;  9 CEU4200000001 &quot;classic~  1990 9   13113. 13141.   -87.4   59.9         13201.
+#&gt; 10 CEU4200000001 &quot;classic~ 1990 10   13185. 13117.    34.6   33.8         13151.
+#&gt; # ... with 347 more rows</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="chap3.html#cb14-1" aria-hidden="true" tabindex="-1"></a>us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="chap3.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb14-3"><a href="chap3.html#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">classical_decomposition</span>(Employed, <span class="at">type =</span> <span class="st">&quot;additive&quot;</span>)</span>
+<span id="cb14-4"><a href="chap3.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="chap3.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="chap3.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb14-7"><a href="chap3.html#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Classical additive decomposition of total</span></span>
+<span id="cb14-8"><a href="chap3.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">                  US retail employment&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+<div id="이동평균에-대한-이해" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> 이동평균에 대한 이해</h2>
+<p>앞서 봤던 고전적 분해방법의 단계중 첫단계가 이동평균으로 추세-주기 구성요소를 계산하는 것이기 때문에
+이동평균에 대한 이해가 필요하다.
+다음과 같이 정의 된다.</p>
+<p><span class="math display">\[
+\hat{T}_{t}=\frac{1}{m}\sum_{j=-k}^{k}y_{t+j}
+\]</span></p>
+<p>이동평균을 하게 되면 무작위성을 어느정도 제거하여 원래의 데이터보다 완만한 곡선을 그리게 된다.</p>
+<div id="m이-홀수인-경우" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> m이 홀수인 경우</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="chap3.html#cb15-1" aria-hidden="true" tabindex="-1"></a>global_economy <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="chap3.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">&quot;Australia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="chap3.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(Exports) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="chap3.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;% of GDP&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Total Australian exports&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="chap3.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb16-2"><a href="chap3.html#cb16-2" aria-hidden="true" tabindex="-1"></a>aus_exports <span class="ot">&lt;-</span> global_economy <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="chap3.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">==</span> <span class="st">&quot;Australia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="chap3.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-5"><a href="chap3.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">3-MA</span><span class="st">`</span> <span class="ot">=</span><span class="fu">rollmean</span>(Exports,<span class="at">fill =</span> <span class="cn">NA</span>,<span class="at">k =</span> <span class="dv">3</span>),</span>
+<span id="cb16-6"><a href="chap3.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">5-MA</span><span class="st">`</span> <span class="ot">=</span><span class="fu">rollmean</span>(Exports,<span class="at">fill =</span> <span class="cn">NA</span>,<span class="at">k =</span> <span class="dv">5</span>),</span>
+<span id="cb16-7"><a href="chap3.html#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">7-MA</span><span class="st">`</span> <span class="ot">=</span><span class="fu">rollmean</span>(Exports,<span class="at">fill =</span> <span class="cn">NA</span>,<span class="at">k =</span> <span class="dv">7</span>),</span>
+<span id="cb16-8"><a href="chap3.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">9-MA</span><span class="st">`</span> <span class="ot">=</span><span class="fu">rollmean</span>(Exports,<span class="at">fill =</span> <span class="cn">NA</span>,<span class="at">k =</span> <span class="dv">9</span>)</span>
+<span id="cb16-9"><a href="chap3.html#cb16-9" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-10"><a href="chap3.html#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">&quot;MA&quot;</span>))</span>
+<span id="cb16-11"><a href="chap3.html#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="chap3.html#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="chap3.html#cb16-13" aria-hidden="true" tabindex="-1"></a>aus_exports <span class="sc">%&gt;%</span></span>
+<span id="cb16-14"><a href="chap3.html#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Year , <span class="at">y =</span> Exports)) <span class="sc">+</span></span>
+<span id="cb16-15"><a href="chap3.html#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line()+</span></span>
+<span id="cb16-16"><a href="chap3.html#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> value), <span class="at">colour =</span> <span class="st">&quot;#D55E00&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="chap3.html#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;% of GDP&quot;</span>,</span>
+<span id="cb16-18"><a href="chap3.html#cb16-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Total Australian exports&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-19"><a href="chap3.html#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> name,<span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<table class="kable_wrapper">
+<caption>
+<span id="tab:unnamed-chunk-7">표 3.1: </span>처음과 마지막 행 5개
+</caption>
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Year</th>
+<th align="right">Exports</th>
+<th align="right">5-MA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1960</td>
+<td align="right">12.99445</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1961</td>
+<td align="right">12.40310</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">1962</td>
+<td align="right">13.94301</td>
+<td align="right">13.45694</td>
+</tr>
+<tr class="even">
+<td align="right">1963</td>
+<td align="right">13.00589</td>
+<td align="right">13.50208</td>
+</tr>
+<tr class="odd">
+<td align="right">1964</td>
+<td align="right">14.93825</td>
+<td align="right">13.60794</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Year</th>
+<th align="right">Exports</th>
+<th align="right">5-MA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">19.98772</td>
+<td align="right">20.81365</td>
+</tr>
+<tr class="even">
+<td align="right">2014</td>
+<td align="right">21.07577</td>
+<td align="right">20.36969</td>
+</tr>
+<tr class="odd">
+<td align="right">2015</td>
+<td align="right">20.01296</td>
+<td align="right">20.31997</td>
+</tr>
+<tr class="even">
+<td align="right">2016</td>
+<td align="right">19.25303</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">2017</td>
+<td align="right">21.27035</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="m이-짝수인-경우" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> m이 짝수인 경우</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="chap3.html#cb17-1" aria-hidden="true" tabindex="-1"></a>beer <span class="ot">&lt;-</span> aus_production <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="chap3.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(Quarter) <span class="sc">&gt;=</span> <span class="dv">1992</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="chap3.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Quarter, Beer)</span>
+<span id="cb17-4"><a href="chap3.html#cb17-4" aria-hidden="true" tabindex="-1"></a>beer_ma <span class="ot">&lt;-</span> beer <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="chap3.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-6"><a href="chap3.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">4-MA</span><span class="st">`</span> <span class="ot">=</span> slider<span class="sc">::</span><span class="fu">slide_dbl</span>(Beer, mean,</span>
+<span id="cb17-7"><a href="chap3.html#cb17-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">2</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-8"><a href="chap3.html#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">2x4-MA</span><span class="st">`</span> <span class="ot">=</span> slider<span class="sc">::</span><span class="fu">slide_dbl</span>(<span class="st">`</span><span class="at">4-MA</span><span class="st">`</span>, mean,</span>
+<span id="cb17-9"><a href="chap3.html#cb17-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">.before =</span> <span class="dv">1</span>, <span class="at">.after =</span> <span class="dv">0</span>, <span class="at">.complete =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-10"><a href="chap3.html#cb17-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-11"><a href="chap3.html#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(`4-MA` =rollmean(Beer,fill = NA,k = 4)) %&gt;% </span></span>
+<span id="cb17-12"><a href="chap3.html#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(`2x4-MA` =rollmean(`4-MA`,fill = NA,k = 2,align = &quot;right&quot;)) </span></span></code></pre></div>
+<table class="kable_wrapper">
+<caption>
+<span id="tab:unnamed-chunk-9">표 3.2: </span>처음과 마지막 행 5개
+</caption>
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Quarter</th>
+<th align="right">Beer</th>
+<th align="right">4-MA</th>
+<th align="right">2x4-MA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1992 Q1</td>
+<td align="right">443</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">1992 Q2</td>
+<td align="right">410</td>
+<td align="right">451.25</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">1992 Q3</td>
+<td align="right">420</td>
+<td align="right">448.75</td>
+<td align="right">450.000</td>
+</tr>
+<tr class="even">
+<td align="left">1992 Q4</td>
+<td align="right">532</td>
+<td align="right">451.50</td>
+<td align="right">450.125</td>
+</tr>
+<tr class="odd">
+<td align="left">1993 Q1</td>
+<td align="right">433</td>
+<td align="right">449.00</td>
+<td align="right">450.250</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Quarter</th>
+<th align="right">Beer</th>
+<th align="right">4-MA</th>
+<th align="right">2x4-MA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2009 Q2</td>
+<td align="right">398</td>
+<td align="right">430.00</td>
+<td align="right">430.000</td>
+</tr>
+<tr class="even">
+<td align="left">2009 Q3</td>
+<td align="right">419</td>
+<td align="right">429.75</td>
+<td align="right">429.875</td>
+</tr>
+<tr class="odd">
+<td align="left">2009 Q4</td>
+<td align="right">488</td>
+<td align="right">423.75</td>
+<td align="right">426.750</td>
+</tr>
+<tr class="even">
+<td align="left">2010 Q1</td>
+<td align="right">414</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">2010 Q2</td>
+<td align="right">374</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\({\hat{T_{t}}=\frac{1}{2}\Big[\frac{1}{4}(y_{t-2}+y_{t-1}+y_{t}+y_{t+1})+\frac{1}{4}(y_{t-1}+y_{t}+y_{t+1}+y_{t+2})\Big]=\frac{1}{8}y_{t-2}+\frac{1}{4}y_{t-1}+\frac{1}{4}y_{t}+\frac{1}{4}y_{t+1}+\frac{1}{8}y_{t+2}.}\)</span></p>
+</div>
+<div id="가중평균" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> 가중평균</h3>
+<p><span class="math inline">\(\hat{T}_{t}=\sum_{j=-k}^{k}a_{j}y_{t+j},\)</span></p>
+<p>이때 모든 <span class="math inline">\(a_{j}\)</span>의 합이 1이고, <span class="math inline">\(a_{j}=a_{-j}\)</span>을 만족해야 한다.</p>
+<p>예를들어, 단순한 5-MA 말고, <span class="math inline">\(y_{t}\)</span> 를 기준으로 멀어질 수록 가중치를 멀어지게 하려면,
+<span class="math inline">\(3\times3\)</span>-MA 를 사용하면 가중치는 <span class="math inline">\(a=[\frac{1}{9},\frac{2}{9},\frac{3}{9},\frac{2}{9},\frac{1}{9}]\)</span> 이 된다. 이렇게 가중치를 조절함으로써 추세의 완만한 정도를 조절할 수 있다.</p>
+</div>
+</div>
+<div id="다양한-분해방법" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> 다양한 분해방법</h2>
+<div id="고전적-분해방법" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> 고전적 분해방법</h3>
+<p>고전적 분해 방법은 다른 시계열 분해방법의 시작점인만큼 계산이 간단하다.</p>
+<p>고전적 분해에서는 계절 성분이 매년 일정하다고 가정한다.</p>
+<p>tsibble 데이터의 한 주기가 어느정도 되는지에 따라 m-MA의 m을 설정한다.
+예를 들어, 월별 데이터 인데 분기별 추세를 보고자 한다면, m = 4 가 될 것이고, 월별 추세를 보려면 m = 12, 일별데이터인데 주별 패턴을 확인하고 싶다면 m = 7 이 될 것이다.</p>
+<div id="가산분해" class="section level4" number="3.4.1.1">
+<h4><span class="header-section-number">3.4.1.1</span> 가산분해</h4>
+<ul>
+<li><p>1단계, 추세-주기 요소를 계산한다.m이 짝수이면, 2 X m-MA 로 계산하고
+홀수이면, m-MA로 계산한다.</p></li>
+<li><p>2단계, <span class="math inline">\(y_{t}\)</span>에서 추세-주기를 뺀다.</p></li>
+<li><p>3단계, 추세-주기를 뺀 데이터를 각각의 계절 요소의 그룹별로 평균을 구한다.
+예를 들어, m이 12인, 월별 계절 요소를 계산한다고 생각하자. 데이터에서 2 x 12 MA 로 계산한 추세-주기 요소를
+원래 있던 시계열 정보에서 뺀 후, 그 데이터를 월별로 그룹을 지어 평균을 계산하면 된다.</p></li>
+<li><p>4단계, 3단계의 결과값에서 계산된 값들의 평균을 구하여 각각의 결과값에 빼준다.
+이렇게 계산된 값이 계절 요소이다. 즉, 계절요소의 평균은 0이 된다.</p></li>
+<li><p>5단계, 원래의 시계열 정보에서 계산된 추세-주기,계절 요소를 빼면 나머지 요소가 계산된다.</p></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="chap3.html#cb18-1" aria-hidden="true" tabindex="-1"></a>classical_decomp<span class="ot">&lt;-</span> us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="chap3.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb18-3"><a href="chap3.html#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">classical_decomposition</span>(Employed, <span class="at">type =</span> <span class="st">&quot;additive&quot;</span>)</span>
+<span id="cb18-4"><a href="chap3.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="chap3.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span> <span class="fu">as_tsibble</span>()</span>
+<span id="cb18-6"><a href="chap3.html#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="chap3.html#cb18-7" aria-hidden="true" tabindex="-1"></a>calculate_seasonal <span class="ot">&lt;-</span> classical_decomp <span class="sc">%&gt;%</span> </span>
+<span id="cb18-8"><a href="chap3.html#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Month,Employed,trend,seasonal) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-9"><a href="chap3.html#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_step_2 =</span> Employed <span class="sc">-</span> trend) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-10"><a href="chap3.html#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="fu">month</span>(Month)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-11"><a href="chap3.html#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_step_3 =</span> <span class="fu">mean</span>(seasonal_step_2,<span class="at">na.rm =</span>T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-12"><a href="chap3.html#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb18-13"><a href="chap3.html#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="chap3.html#cb18-14" aria-hidden="true" tabindex="-1"></a>seasonal_step_4 <span class="ot">&lt;-</span> calculate_seasonal <span class="sc">%&gt;%</span> </span>
+<span id="cb18-15"><a href="chap3.html#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(seasonal_step_3) <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span>
+<span id="cb18-16"><a href="chap3.html#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="chap3.html#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># unique를 해주는 이유는 이 데이터와 같이 주기가 딱 떨어지지 않을 수 있기 때문이다.</span></span>
+<span id="cb18-18"><a href="chap3.html#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 1~12월*29번, + 1~9월 이있음.</span></span>
+<span id="cb18-19"><a href="chap3.html#cb18-19" aria-hidden="true" tabindex="-1"></a>seasonal_step_4</span></code></pre></div>
+<pre><code>#&gt; [1] -0.01894243</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-11">표 3.3: </span>가법모형 seasonal 계산결과</caption>
+<thead>
+<tr class="header">
+<th align="right">seasonal</th>
+<th align="right">seasonal_step_2</th>
+<th align="right">seasonal_step_3</th>
+<th align="right">seasonal_step_5</th>
+<th align="left">Month</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-75.461230</td>
+<td align="right">NA</td>
+<td align="right">-75.48017</td>
+<td align="right">-75.461230</td>
+<td align="left">1990 1</td>
+</tr>
+<tr class="even">
+<td align="right">-273.051173</td>
+<td align="right">NA</td>
+<td align="right">-273.07011</td>
+<td align="right">-273.051173</td>
+<td align="left">1990 2</td>
+</tr>
+<tr class="odd">
+<td align="right">-253.195856</td>
+<td align="right">NA</td>
+<td align="right">-253.21480</td>
+<td align="right">-253.195856</td>
+<td align="left">1990 3</td>
+</tr>
+<tr class="even">
+<td align="right">-190.219599</td>
+<td align="right">NA</td>
+<td align="right">-190.23854</td>
+<td align="right">-190.219599</td>
+<td align="left">1990 4</td>
+</tr>
+<tr class="odd">
+<td align="right">-88.923022</td>
+<td align="right">NA</td>
+<td align="right">-88.94196</td>
+<td align="right">-88.923022</td>
+<td align="left">1990 5</td>
+</tr>
+<tr class="even">
+<td align="right">-10.388349</td>
+<td align="right">NA</td>
+<td align="right">-10.40729</td>
+<td align="right">-10.388349</td>
+<td align="left">1990 6</td>
+</tr>
+<tr class="odd">
+<td align="right">-13.311661</td>
+<td align="right">-7.662500</td>
+<td align="right">-13.33060</td>
+<td align="right">-13.311661</td>
+<td align="left">1990 7</td>
+</tr>
+<tr class="even">
+<td align="right">-9.992695</td>
+<td align="right">-1.195833</td>
+<td align="right">-10.01164</td>
+<td align="right">-9.992695</td>
+<td align="left">1990 8</td>
+</tr>
+<tr class="odd">
+<td align="right">-87.379333</td>
+<td align="right">-27.470833</td>
+<td align="right">-87.39828</td>
+<td align="right">-87.379333</td>
+<td align="left">1990 9</td>
+</tr>
+<tr class="even">
+<td align="right">34.634747</td>
+<td align="right">68.454167</td>
+<td align="right">34.61580</td>
+<td align="right">34.634747</td>
+<td align="left">1990 10</td>
+</tr>
+<tr class="odd">
+<td align="right">394.300408</td>
+<td align="right">372.362500</td>
+<td align="right">394.28147</td>
+<td align="right">394.300408</td>
+<td align="left">1990 11</td>
+</tr>
+<tr class="even">
+<td align="right">572.987764</td>
+<td align="right">610.708333</td>
+<td align="right">572.96882</td>
+<td align="right">572.987764</td>
+<td align="left">1990 12</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="chap3.html#cb20-1" aria-hidden="true" tabindex="-1"></a>us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="chap3.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb20-3"><a href="chap3.html#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">classical_decomposition</span>(Employed, <span class="at">type =</span> <span class="st">&quot;additive&quot;</span>)</span>
+<span id="cb20-4"><a href="chap3.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="chap3.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="chap3.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb20-7"><a href="chap3.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Classical additive decomposition of total</span></span>
+<span id="cb20-8"><a href="chap3.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="st">                  US retail employment&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="chap3.html#cb21-1" aria-hidden="true" tabindex="-1"></a>classical_decomp<span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="chap3.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_subseries</span>(seasonal)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+</div>
+<div id="승법분해" class="section level4" number="3.4.1.2">
+<h4><span class="header-section-number">3.4.1.2</span> 승법분해</h4>
+<ul>
+<li><p>1단계, 추세-주기 요소를 계산한다.m이 짝수이면, 2 X m-MA 로 계산하고
+홀수이면, m-MA로 계산한다.</p></li>
+<li><p>2단계, <span class="math inline">\(y_{t}\)</span>에서 추세-주기를 나눈다.</p></li>
+<li><p>3단계, 2단계에서 계산된 값들에
+계절 요소의 그룹별로 평균을 구한다. 예를 들어, m이 12인, 월별 계절 요소를
+계산한다고 생각하자. 데이터에서 2 x 12 MA 를 계산한 추세-주기 요소를
+원래 있던 시계열 정보에서 나눈 후, 그 데이터를 월별로 그룹을 지어 평균을 계산하면 된다.</p></li>
+<li><p>4단계, 3단계의 계산 결과나온 요소들의 합이 m이 되도록 크기 조정을 해준다.
+이 값이 계절 요소가 된다.</p></li>
+<li><p>5단계, 원래의 시계열 정보에서 계산된 추세-주기,계절 요소를 나누면 나머지 요소가 계산된다.</p></li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="chap3.html#cb22-1" aria-hidden="true" tabindex="-1"></a>classical_decomp<span class="ot">&lt;-</span> us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="chap3.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb22-3"><a href="chap3.html#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">classical_decomposition</span>(Employed, <span class="at">type =</span> <span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb22-4"><a href="chap3.html#cb22-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="chap3.html#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span> <span class="fu">as_tsibble</span>()</span>
+<span id="cb22-6"><a href="chap3.html#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="chap3.html#cb22-7" aria-hidden="true" tabindex="-1"></a>seasonal_mult <span class="ot">&lt;-</span>  classical_decomp <span class="sc">%&gt;%</span> </span>
+<span id="cb22-8"><a href="chap3.html#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Month,Employed,trend,seasonal) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-9"><a href="chap3.html#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_step_2 =</span> Employed <span class="sc">/</span> trend) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-10"><a href="chap3.html#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="fu">month</span>(Month)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-11"><a href="chap3.html#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_step_3 =</span> <span class="fu">mean</span>(seasonal_step_2,<span class="at">na.rm =</span>T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-12"><a href="chap3.html#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;seasonal&quot;</span>))</span>
+<span id="cb22-13"><a href="chap3.html#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="chap3.html#cb22-14" aria-hidden="true" tabindex="-1"></a>seasonal_step_3_scale<span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">unique</span>(seasonal_mult<span class="sc">$</span>seasonal_step_3))</span>
+<span id="cb22-15"><a href="chap3.html#cb22-15" aria-hidden="true" tabindex="-1"></a>seasonal_step_3_scale</span></code></pre></div>
+<pre><code>#&gt; [1] 11.99982</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chap3.html#cb24-1" aria-hidden="true" tabindex="-1"></a>seasonal_mult <span class="ot">&lt;-</span> seasonal_mult <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="chap3.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_step_4 =</span> seasonal_step_3<span class="sc">/</span>seasonal_step_3_scale<span class="sc">*</span><span class="dv">12</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-14">표 3.4: </span>승법모형 seasonal 계산결과</caption>
+<thead>
+<tr class="header">
+<th align="right">month(Month)</th>
+<th align="right">seasonal</th>
+<th align="right">seasonal_step_2</th>
+<th align="right">seasonal_step_3</th>
+<th align="left">Month</th>
+<th align="right">seasonal_step_4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.9949463</td>
+<td align="right">NA</td>
+<td align="right">0.9949310</td>
+<td align="left">1990 1</td>
+<td align="right">0.9949463</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.9814765</td>
+<td align="right">NA</td>
+<td align="right">0.9814614</td>
+<td align="left">1990 2</td>
+<td align="right">0.9814765</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.9827143</td>
+<td align="right">NA</td>
+<td align="right">0.9826991</td>
+<td align="left">1990 3</td>
+<td align="right">0.9827143</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.9869857</td>
+<td align="right">NA</td>
+<td align="right">0.9869705</td>
+<td align="left">1990 4</td>
+<td align="right">0.9869857</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.9938970</td>
+<td align="right">NA</td>
+<td align="right">0.9938817</td>
+<td align="left">1990 5</td>
+<td align="right">0.9938970</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.9992581</td>
+<td align="right">NA</td>
+<td align="right">0.9992427</td>
+<td align="left">1990 6</td>
+<td align="right">0.9992581</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.9990583</td>
+<td align="right">0.9994185</td>
+<td align="right">0.9990429</td>
+<td align="left">1990 7</td>
+<td align="right">0.9990583</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">0.9993224</td>
+<td align="right">0.9999091</td>
+<td align="right">0.9993070</td>
+<td align="left">1990 8</td>
+<td align="right">0.9993224</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">0.9941725</td>
+<td align="right">0.9979095</td>
+<td align="right">0.9941572</td>
+<td align="left">1990 9</td>
+<td align="right">0.9941725</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">1.0024237</td>
+<td align="right">1.0052188</td>
+<td align="right">1.0024083</td>
+<td align="left">1990 10</td>
+<td align="right">1.0024237</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="right">1.0267098</td>
+<td align="right">1.0284473</td>
+<td align="right">1.0266940</td>
+<td align="left">1990 11</td>
+<td align="right">1.0267098</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">1.0390354</td>
+<td align="right">1.0467532</td>
+<td align="right">1.0390193</td>
+<td align="left">1990 12</td>
+<td align="right">1.0390354</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chap3.html#cb25-1" aria-hidden="true" tabindex="-1"></a>us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="chap3.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb25-3"><a href="chap3.html#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">classical_decomposition</span>(Employed, <span class="at">type =</span> <span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb25-4"><a href="chap3.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="chap3.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="chap3.html#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb25-7"><a href="chap3.html#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Classical additive decomposition of total</span></span>
+<span id="cb25-8"><a href="chap3.html#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="st">                  US retail employment&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+<div id="한계점" class="section level4" number="3.4.1.3">
+<h4><span class="header-section-number">3.4.1.3</span> 한계점</h4>
+<ul>
+<li>추세주기의 추정치는 처음과 마지막 몇개를 사용할 수 없다. 따라서 나머지 요소도 계산할 수 없다.</li>
+<li>급격한 상승과 하락을 지나치게 부드럽게 하는 경향이 있다.</li>
+<li>계절 성분이 시간이 흘러도 변하지 않는다.</li>
+</ul>
+</div>
+</div>
+<div id="x11" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> X11</h3>
+<p>미국 인구조사국에서 시작되었으며 캐나다 통계청에서 추가로 개발했다.</p>
+<p><code>seasonal</code> package 필요</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chap3.html#cb26-1" aria-hidden="true" tabindex="-1"></a>x11_dcmp <span class="ot">&lt;-</span> us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="chap3.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">x11 =</span> <span class="fu">X_13ARIMA_SEATS</span>(Employed <span class="sc">~</span> <span class="fu">x11</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="chap3.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>()</span>
+<span id="cb26-4"><a href="chap3.html#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="chap3.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(x11_dcmp) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="chap3.html#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span></span>
+<span id="cb26-7"><a href="chap3.html#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Decomposition of total US retail employment using X-11.&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chap3.html#cb27-1" aria-hidden="true" tabindex="-1"></a>x11_dcmp <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="chap3.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_subseries</span>(seasonal)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+</div>
+<div id="seats" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> SEATS</h3>
+<p>Seasonal Extraction in ARIMA Time Series, 스페인 은행에서 개발되었고, 현재 전 세계 정부 기관에서 많이 사용되고 있다고 한다.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chap3.html#cb28-1" aria-hidden="true" tabindex="-1"></a>seats_dcmp <span class="ot">&lt;-</span> us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="chap3.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">seats =</span> <span class="fu">X_13ARIMA_SEATS</span>(Employed <span class="sc">~</span> <span class="fu">seats</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="chap3.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>()</span>
+<span id="cb28-4"><a href="chap3.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(seats_dcmp) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="chap3.html#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span></span>
+<span id="cb28-6"><a href="chap3.html#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Decomposition of total US retail employment using SEATS&quot;</span>)</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="stl" class="section level3" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> STL</h3>
+<p>Seasonal and Trend decomposition using Loess</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="chap3.html#cb29-1" aria-hidden="true" tabindex="-1"></a>us_retail_employment <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="chap3.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(</span>
+<span id="cb29-3"><a href="chap3.html#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">STL</span>(Employed <span class="sc">~</span> <span class="fu">trend</span>(<span class="at">window =</span> <span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="chap3.html#cb29-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">season</span>(<span class="at">window =</span> <span class="dv">7</span>),</span>
+<span id="cb29-5"><a href="chap3.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">robust =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="chap3.html#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">components</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb29-7"><a href="chap3.html#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="03-time-series-decomposition_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>3가지 방법 모두 고전적 분해방법의 한계점 중, 결측값문제와 계절성분이 단순반복 되는 점을 극복했다.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": null,
+"edit": {
+"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/03-time-series-decomposition.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

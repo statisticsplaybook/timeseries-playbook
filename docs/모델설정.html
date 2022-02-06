@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>시계열 공략집 with R</title>
+  <title>Chapter 16 모델설정 ——————————————————————– | 시계열 공략집 with R</title>
   <meta name="description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="시계열 공략집 with R" />
+  <meta property="og:title" content="Chapter 16 모델설정 ——————————————————————– | 시계열 공략집 with R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="statisticsplaybook/r-torch-playbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="시계열 공략집 with R" />
+  <meta name="twitter:title" content="Chapter 16 모델설정 ——————————————————————– | 시계열 공략집 with R" />
   
   <meta name="twitter:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html"/>
+<link rel="prev" href="나머지.html"/>
+<link rel="next" href="가법-승법-모형.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -71,70 +71,6 @@
 <script data-ad-client="ca-pub-3877288275353516" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -175,6 +111,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="chap2.html"><a href="chap2.html#tsibble-그리고-fable-패키지-1"><i class="fa fa-check"></i><b>2.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> 시계열의 분해</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chap3.html"><a href="chap3.html#시계열-조정-및-변환"><i class="fa fa-check"></i><b>3.1</b> 시계열 조정 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-분해.html"><a href="시계열-분해.html"><i class="fa fa-check"></i><b>4</b> 3. 시계열 분해</a></li>
+<li class="chapter" data-level="5" data-path="변환-및-조정.html"><a href="변환-및-조정.html"><i class="fa fa-check"></i><b>5</b> *3.1 변환 및 조정 ————————————————————</a></li>
+<li class="chapter" data-level="6" data-path="인구조정-물가조정-달력조정수학적-변환-등으로.html"><a href="인구조정-물가조정-달력조정수학적-변환-등으로.html"><i class="fa fa-check"></i><b>6</b> 인구조정, 물가조정, 달력조정,수학적 변환 등으로</a></li>
+<li class="chapter" data-level="7" data-path="기존에-있는-시계열-정보에-실제와-다르게-왜곡된-정보를-먼저-바로잡은-후에.html"><a href="기존에-있는-시계열-정보에-실제와-다르게-왜곡된-정보를-먼저-바로잡은-후에.html"><i class="fa fa-check"></i><b>7</b> 기존에 있는 시계열 정보에 실제와 다르게 왜곡된 정보를 먼저 바로잡은 후에</a></li>
+<li class="chapter" data-level="8" data-path="분해를-해야-효과적으로-각각의-요소를-분석할-수-있다..html"><a href="분해를-해야-효과적으로-각각의-요소를-분석할-수-있다..html"><i class="fa fa-check"></i><b>8</b> 분해를 해야 효과적으로 각각의 요소를 분석할 수 있다.</a></li>
+<li class="chapter" data-level="9" data-path="인구조정.html"><a href="인구조정.html"><i class="fa fa-check"></i><b>9</b> **인구조정 ——————————————————————</a></li>
+<li class="chapter" data-level="10" data-path="물가조정.html"><a href="물가조정.html"><i class="fa fa-check"></i><b>10</b> **물가조정 ——————————————————————</a></li>
+<li class="chapter" data-level="11" data-path="수학적변환.html"><a href="수학적변환.html"><i class="fa fa-check"></i><b>11</b> **수학적변환 ——————————————————————</a></li>
+<li class="chapter" data-level="12" data-path="시계열의-구성요소.html"><a href="시계열의-구성요소.html"><i class="fa fa-check"></i><b>12</b> *3.2시계열의 구성요소 ———————————————————–</a></li>
+<li class="chapter" data-level="13" data-path="추세-주기.html"><a href="추세-주기.html"><i class="fa fa-check"></i><b>13</b> **추세-주기</a></li>
+<li class="chapter" data-level="14" data-path="계절.html"><a href="계절.html"><i class="fa fa-check"></i><b>14</b> **계절</a></li>
+<li class="chapter" data-level="15" data-path="나머지.html"><a href="나머지.html"><i class="fa fa-check"></i><b>15</b> **나머지</a></li>
+<li class="chapter" data-level="16" data-path="모델설정.html"><a href="모델설정.html"><i class="fa fa-check"></i><b>16</b> 모델설정 ——————————————————————–</a></li>
+<li class="chapter" data-level="17" data-path="가법-승법-모형.html"><a href="가법-승법-모형.html"><i class="fa fa-check"></i><b>17</b> 가법, 승법 모형</a></li>
+<li class="chapter" data-level="18" data-path="고전적-분해방법--.html"><a href="고전적-분해방법--.html"><i class="fa fa-check"></i><b>18</b> 고전적 분해방법 —————————————————————-</a></li>
+<li class="chapter" data-level="19" data-path="여러가지-분해-방법.html"><a href="여러가지-분해-방법.html"><i class="fa fa-check"></i><b>19</b> 여러가지 분해 방법 —————————————————————</a></li>
+<li class="chapter" data-level="20" data-path="분해방법-별-특징-정리하기.html"><a href="분해방법-별-특징-정리하기.html"><i class="fa fa-check"></i><b>20</b> 분해방법 별 특징 정리하기</a></li>
+<li class="chapter" data-level="21" data-path="stl-분해-예제.html"><a href="stl-분해-예제.html"><i class="fa fa-check"></i><b>21</b> STL 분해 예제</a></li>
+<li class="chapter" data-level="22" data-path="시계열-조정-가법모형이라-yt---st.html"><a href="시계열-조정-가법모형이라-yt---st.html"><i class="fa fa-check"></i><b>22</b> 시계열 조정 (가법모형이라 yt - St)</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/statisticsplaybook/r-torch-playbook" target="blank">Published with bookdown</a></li>
@@ -196,58 +155,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">시계열 공략집 with R</h1>
-<p class="author"><em><a href="https://www.youtube.com/c/statisticsplaybook">슬기로운통계생활</a></em></p>
-<p class="date"><em>2022-02-02</em></p>
-</div>
-<div id="들어가며" class="section level1 unnumbered">
-<h1>들어가며</h1>
-<p><img src="image/deeplearning-playbook.png" /></p>
-<p>슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다! 많은 내용은 다음의 R 시계열 교과서인 <a href="https://otexts.com/fpp3/">Forecasting: Principles and Practice (이하 <code>fpp3</code>)</a> 책을 기반으로 하고 있으나, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다.</p>
-<div id="공략집-사용법" class="section level2 unnumbered">
-<h2>공략집 사용법</h2>
-<ul>
-<li>중요표시, 주석달기: 읽다가 중요하거나 나중에 따로 보고싶은 기능의 경우, 드래그를 하면 다음과 같은 선택 버튼이 나온다. 형광펜 긋고 싶은 경우 <code>Highlight</code> 선택, 주석을 달고 싶은 경우 <code>Annotate</code>을 선택하자.</li>
-</ul>
-<p><img src="image/annotation.jpg" /></p>
-<ul>
-<li><p>하이라이팅 on/off: 가끔은 하이라이팅 해 놓은 것들을 없애고 글 만 읽고싶은 경우가 있을텐데 그 때엔 오른쪽 상단 동그라미에 점이 찍혀있는 버튼를 클릭하면 하이라이팅 된 것이 사라진다.</p></li>
-<li><p>주석 공개/비공개: 주석은 필자와 다른 독자가 볼 수 있도록 <code>public</code>하게 남길 수도 있고, 자신만 볼 수 있게끔 private으로 설정 할 수 있다.</p></li>
-</ul>
-<p><img src="image/private.jpg" /></p>
-<ul>
-<li>주석 기능을 이용하여 필자에게 피드백을 줄 수 있다. 오타나 오류 발견시 주석을 달아주시면 필자가 주기적으로 체크해서 고쳐나가도록 하겠다.</li>
-</ul>
-<div class="rmdnote">
-<h3 id="알아두기">
-알아두기
-</h3>
-<p>
-<strong>하이라이팅과 주석들을 나중에 따로 볼 수 있다.</strong> 자주 방문하시는 분들은 가입하시고 사용하시면 여러모로 편할 것이다.
-</p>
-</div>
-</div>
-<div id="설치하기" class="section level2 unnumbered">
-<h2>설치하기</h2>
-<p>설치 역시 간단한다. 여느 R패키지와 같이 <code>install.packages()</code> 함수를 사용하면 된다. 서브 라이브러리인 <code>torchaudio</code>와 <code>torchvision</code>이 있으나, 책의 뒷부분에서 다루기로 한다.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;fpp3&quot;</span>)</span></code></pre></div>
-</div>
-<div id="기본-패키지" class="section level2 unnumbered">
-<h2>기본 패키지</h2>
-<p>앞으로의 내용에 있어서 다음의 두 패키지는 기본으로 불러와서 사용하는 것을 약속으로 한다.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span></code></pre></div>
-
-</div>
+<div id="모델설정" class="section level1" number="16">
+<h1><span class="header-section-number">Chapter 16</span> 모델설정 ——————————————————————–</h1>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="나머지.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="가법-승법-모형.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -264,7 +181,7 @@ gitbook.start({
 "sharing": null,
 "fontsettings": null,
 "edit": {
-"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/index.Rmd",
+"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/03-time-series-decomposition.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -287,6 +204,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
