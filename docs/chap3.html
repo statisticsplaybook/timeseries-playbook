@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
-  <meta name="github-repo" content="statisticsplaybook/r-torch-playbook" />
+  <meta name="github-repo" content="statisticsplaybook/timeseries-playbook" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 시계열의 분해 | 시계열 공략집 with R" />
@@ -24,14 +24,14 @@
 <meta name="author" content="슬기로운통계생활" />
 
 
-<meta name="date" content="2022-02-02" />
+<meta name="date" content="2022-02-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="chap2.html"/>
+<link rel="prev" href="ch2.html"/>
 <link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -55,6 +55,14 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.20/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 <script async defer src="https://hypothes.is/embed.js"></script>
 <meta name="google-site-verification" content="z9CiKKDExNMW8gi4-dN3X6zGa1-OXeSaIpjGFgXgHEg" />
 
@@ -162,7 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> 시계열 첫걸음, 관련 패키지의 이해</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#tsibble-그리고-fable-패키지"><i class="fa fa-check"></i><b>1.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#tsibble-feasts-그리고-fable-패키지"><i class="fa fa-check"></i><b>1.1</b> <code>tsibble</code>, <code>feasts</code> 그리고 <code>fable</code> 패키지</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#fpp3-패키지"><i class="fa fa-check"></i><b>1.2</b> <code>fpp3</code> 패키지</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#tsible-객체"><i class="fa fa-check"></i><b>1.3</b> tsible 객체</a></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#csv-파일로부터-tsibble-객체-만들기-연습"><i class="fa fa-check"></i><b>1.4</b> csv 파일로부터 <code>tsibble</code> 객체 만들기 연습</a></li>
@@ -170,10 +178,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#시계열-자료-구성-요소"><i class="fa fa-check"></i><b>1.6</b> 시계열 자료 구성 요소</a></li>
 <li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#seasonal-plot"><i class="fa fa-check"></i><b>1.7</b> Seasonal plot</a></li>
 <li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#scatter-plots"><i class="fa fa-check"></i><b>1.8</b> Scatter plots</a></li>
+<li class="chapter" data-level="1.9" data-path="intro.html"><a href="intro.html#lag-plots"><i class="fa fa-check"></i><b>1.9</b> Lag plots</a></li>
+<li class="chapter" data-level="1.10" data-path="intro.html"><a href="intro.html#autocorrelation"><i class="fa fa-check"></i><b>1.10</b> Autocorrelation</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> 시계열 첫걸음2, 관련 패키지의 이해</a>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> 시계열 모델의 기초</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="chap2.html"><a href="chap2.html#tsibble-그리고-fable-패키지-1"><i class="fa fa-check"></i><b>2.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#시계열-예측-단계-fpp3-1.6"><i class="fa fa-check"></i><b>2.1</b> 시계열 예측 단계 (fpp3 1.6)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2.html"><a href="ch2.html#단계.-문제-정의"><i class="fa fa-check"></i><b>2.1.1</b> 1단계. 문제 정의</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2.html"><a href="ch2.html#단계.-정보-수집"><i class="fa fa-check"></i><b>2.1.2</b> 2단계. 정보 수집</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2.html"><a href="ch2.html#단계.-기초-분석"><i class="fa fa-check"></i><b>2.1.3</b> 3단계. 기초 분석</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2.html"><a href="ch2.html#단계.-모델-선택-및-피팅"><i class="fa fa-check"></i><b>2.1.4</b> 4단계. 모델 선택 및 피팅</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2.html"><a href="ch2.html#단계.-모델-사용과-평가"><i class="fa fa-check"></i><b>2.1.5</b> 5단계. 모델 사용과 평가</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#시계열-데이터-분포"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 분포</a></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#시계열-모델-분석을-위한-기초"><i class="fa fa-check"></i><b>2.3</b> 시계열 모델 분석을 위한 기초</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ch2.html"><a href="ch2.html#확률과정-stochastic-process"><i class="fa fa-check"></i><b>2.3.1</b> 확률과정 (Stochastic Process)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ch2.html"><a href="ch2.html#평균함수-mean-function"><i class="fa fa-check"></i><b>2.3.2</b> 평균함수 (Mean Function)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ch2.html"><a href="ch2.html#자기공분산-함수-autocovariance-function"><i class="fa fa-check"></i><b>2.3.3</b> 자기공분산 함수 (Autocovariance function)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ch2.html"><a href="ch2.html#자기상관함수-autocorrelation-function"><i class="fa fa-check"></i><b>2.3.4</b> 자기상관함수 (Autocorrelation function)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#예제-1.-백색소음-모형-white-noise"><i class="fa fa-check"></i><b>2.4</b> 예제 1. 백색소음 모형 (White Noise)</a></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#예제-2.-랜덤워크-모형-random-walk"><i class="fa fa-check"></i><b>2.5</b> 예제 2. 랜덤워크 모형 (Random Walk)</a></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#예제-3.-이동평균-모형-moving-average"><i class="fa fa-check"></i><b>2.6</b> 예제 3. 이동평균 모형 (Moving Average)</a></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#정상성-stationarity"><i class="fa fa-check"></i><b>2.7</b> 정상성 (Stationarity)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> 시계열의 분해</a>
 <ul>
@@ -204,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/statisticsplaybook/r-torch-playbook" target="blank">Published with bookdown</a></li>
+<li><a href="https://github.com/statisticsplaybook/timeseries-playbook" target="blank">관련 깃허브 바로가기</a></li>
 
 </ul>
 
@@ -699,7 +728,7 @@ y_{t}=S_{t}\times T_{t}\times R_{t}
 <span id="cb18-9"><a href="chap3.html#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_step_2 =</span> Employed <span class="sc">-</span> trend) <span class="sc">%&gt;%</span> </span>
 <span id="cb18-10"><a href="chap3.html#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="fu">month</span>(Month)) <span class="sc">%&gt;%</span></span>
 <span id="cb18-11"><a href="chap3.html#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">seasonal_step_3 =</span> <span class="fu">mean</span>(seasonal_step_2,<span class="at">na.rm =</span>T)) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-12"><a href="chap3.html#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb18-12"><a href="chap3.html#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> view</span>
 <span id="cb18-13"><a href="chap3.html#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-14"><a href="chap3.html#cb18-14" aria-hidden="true" tabindex="-1"></a>seasonal_step_4 <span class="ot">&lt;-</span> calculate_seasonal <span class="sc">%&gt;%</span> </span>
 <span id="cb18-15"><a href="chap3.html#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(seasonal_step_3) <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span>
@@ -1029,7 +1058,7 @@ y_{t}=S_{t}\times T_{t}\times R_{t}
           </div>
         </div>
       </div>
-<a href="chap2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -1047,7 +1076,7 @@ gitbook.start({
 "sharing": null,
 "fontsettings": null,
 "edit": {
-"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/03-time-series-decomposition.Rmd",
+"link": "https://github.com/statisticsplaybook/timeseries-playbook/edit/main/03-time-series-decomposition.Rmd",
 "text": "Edit"
 },
 "history": {

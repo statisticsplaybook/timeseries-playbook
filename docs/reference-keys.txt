@@ -13,6 +13,7 @@ scatter-plots
 fig:unnamed-chunk-12
 tsibble-그리고-fable-패키지-1
 chap2
+<<<<<<< HEAD
 수정..-제발-..
 chap3
 시계열-조정-및-변환
@@ -58,3 +59,28 @@ tab:unnamed-chunk-9
 한계점
 tab:unnamed-chunk-11
 tab:unnamed-chunk-14
+=======
+수정..-제발..
+lag-plots
+tab:unnamed-chunk-19
+tsibble-feasts-그리고-fable-패키지
+tab:unnamed-chunk-20
+autocorrelation
+ch2
+시계열-예측-단계-fpp3-1.6
+단계.-문제-정의
+단계.-정보-수집
+단계.-기초-분석
+단계.-모델-선택-및-피팅
+단계.-모델-사용과-평가
+시계열-데이터-분포
+시계열-모델-분석을-위한-기초
+확률과정-stochastic-process
+평균함수-mean-function
+자기공분산-함수-autocovariance-function
+자기상관함수-autocorrelation-function
+예제-1.-백색소음-모형-white-noise
+예제-2.-랜덤워크-모형-random-walk
+예제-3.-이동평균-모형-moving-average
+정상성-stationarity
+>>>>>>> dbd67e7d58fa2658675cb97560ef29c0be21f2a6

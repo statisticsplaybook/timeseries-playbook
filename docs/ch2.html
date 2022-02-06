@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 시계열 모델의 기초 | 시계열 공략집 with R</title>
+  <meta name="description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 시계열 모델의 기초 | 시계열 공략집 with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  <meta name="github-repo" content="statisticsplaybook/timeseries-playbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 시계열 모델의 기초 | 시계열 공략집 with R" />
+  
+  <meta name="twitter:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  
+
+<meta name="author" content="슬기로운통계생활" />
+
+
+<meta name="date" content="2022-02-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="chap3.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.20/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<script async defer src="https://hypothes.is/embed.js"></script>
+<meta name="google-site-verification" content="z9CiKKDExNMW8gi4-dN3X6zGa1-OXeSaIpjGFgXgHEg" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MYZBEL4H2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6MYZBEL4H2');
+</script>
+
+<script data-ad-client="ca-pub-3877288275353516" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="dlplaybook.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">시계열 공략집 with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>들어가며</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#공략집-사용법"><i class="fa fa-check"></i>공략집 사용법</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#설치하기"><i class="fa fa-check"></i>설치하기</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#기본-패키지"><i class="fa fa-check"></i>기본 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> 시계열 첫걸음, 관련 패키지의 이해</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#tsibble-feasts-그리고-fable-패키지"><i class="fa fa-check"></i><b>1.1</b> <code>tsibble</code>, <code>feasts</code> 그리고 <code>fable</code> 패키지</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#fpp3-패키지"><i class="fa fa-check"></i><b>1.2</b> <code>fpp3</code> 패키지</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#tsible-객체"><i class="fa fa-check"></i><b>1.3</b> tsible 객체</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#csv-파일로부터-tsibble-객체-만들기-연습"><i class="fa fa-check"></i><b>1.4</b> csv 파일로부터 <code>tsibble</code> 객체 만들기 연습</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#time-plots"><i class="fa fa-check"></i><b>1.5</b> Time plots</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#시계열-자료-구성-요소"><i class="fa fa-check"></i><b>1.6</b> 시계열 자료 구성 요소</a></li>
+<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#seasonal-plot"><i class="fa fa-check"></i><b>1.7</b> Seasonal plot</a></li>
+<li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#scatter-plots"><i class="fa fa-check"></i><b>1.8</b> Scatter plots</a></li>
+<li class="chapter" data-level="1.9" data-path="intro.html"><a href="intro.html#lag-plots"><i class="fa fa-check"></i><b>1.9</b> Lag plots</a></li>
+<li class="chapter" data-level="1.10" data-path="intro.html"><a href="intro.html#autocorrelation"><i class="fa fa-check"></i><b>1.10</b> Autocorrelation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> 시계열 모델의 기초</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#시계열-예측-단계-fpp3-1.6"><i class="fa fa-check"></i><b>2.1</b> 시계열 예측 단계 (fpp3 1.6)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2.html"><a href="ch2.html#단계.-문제-정의"><i class="fa fa-check"></i><b>2.1.1</b> 1단계. 문제 정의</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2.html"><a href="ch2.html#단계.-정보-수집"><i class="fa fa-check"></i><b>2.1.2</b> 2단계. 정보 수집</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2.html"><a href="ch2.html#단계.-기초-분석"><i class="fa fa-check"></i><b>2.1.3</b> 3단계. 기초 분석</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2.html"><a href="ch2.html#단계.-모델-선택-및-피팅"><i class="fa fa-check"></i><b>2.1.4</b> 4단계. 모델 선택 및 피팅</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2.html"><a href="ch2.html#단계.-모델-사용과-평가"><i class="fa fa-check"></i><b>2.1.5</b> 5단계. 모델 사용과 평가</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#시계열-데이터-분포"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 분포</a></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#시계열-모델-분석을-위한-기초"><i class="fa fa-check"></i><b>2.3</b> 시계열 모델 분석을 위한 기초</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ch2.html"><a href="ch2.html#확률과정-stochastic-process"><i class="fa fa-check"></i><b>2.3.1</b> 확률과정 (Stochastic Process)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ch2.html"><a href="ch2.html#평균함수-mean-function"><i class="fa fa-check"></i><b>2.3.2</b> 평균함수 (Mean Function)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ch2.html"><a href="ch2.html#자기공분산-함수-autocovariance-function"><i class="fa fa-check"></i><b>2.3.3</b> 자기공분산 함수 (Autocovariance function)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ch2.html"><a href="ch2.html#자기상관함수-autocorrelation-function"><i class="fa fa-check"></i><b>2.3.4</b> 자기상관함수 (Autocorrelation function)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#예제-1.-백색소음-모형-white-noise"><i class="fa fa-check"></i><b>2.4</b> 예제 1. 백색소음 모형 (White Noise)</a></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#예제-2.-랜덤워크-모형-random-walk"><i class="fa fa-check"></i><b>2.5</b> 예제 2. 랜덤워크 모형 (Random Walk)</a></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#예제-3.-이동평균-모형-moving-average"><i class="fa fa-check"></i><b>2.6</b> 예제 3. 이동평균 모형 (Moving Average)</a></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#정상성-stationarity"><i class="fa fa-check"></i><b>2.7</b> 정상성 (Stationarity)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> 시계열의 분해</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chap3.html"><a href="chap3.html#시계열-조정-및-변환"><i class="fa fa-check"></i><b>3.1</b> 시계열 조정 및 변환</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="chap3.html"><a href="chap3.html#인구조정"><i class="fa fa-check"></i><b>3.1.1</b> 인구조정</a></li>
+<li class="chapter" data-level="3.1.2" data-path="chap3.html"><a href="chap3.html#물가조정"><i class="fa fa-check"></i><b>3.1.2</b> 물가조정</a></li>
+<li class="chapter" data-level="3.1.3" data-path="chap3.html"><a href="chap3.html#달력조정"><i class="fa fa-check"></i><b>3.1.3</b> 달력조정</a></li>
+<li class="chapter" data-level="3.1.4" data-path="chap3.html"><a href="chap3.html#수학적-변환"><i class="fa fa-check"></i><b>3.1.4</b> 수학적 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="chap3.html"><a href="chap3.html#시계열의-구성요소"><i class="fa fa-check"></i><b>3.2</b> 시계열의 구성요소</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chap3.html"><a href="chap3.html#모델-설정"><i class="fa fa-check"></i><b>3.2.1</b> 모델 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap3.html"><a href="chap3.html#이동평균에-대한-이해"><i class="fa fa-check"></i><b>3.3</b> 이동평균에 대한 이해</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chap3.html"><a href="chap3.html#m이-홀수인-경우"><i class="fa fa-check"></i><b>3.3.1</b> m이 홀수인 경우</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chap3.html"><a href="chap3.html#m이-짝수인-경우"><i class="fa fa-check"></i><b>3.3.2</b> m이 짝수인 경우</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chap3.html"><a href="chap3.html#가중평균"><i class="fa fa-check"></i><b>3.3.3</b> 가중평균</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap3.html"><a href="chap3.html#다양한-분해방법"><i class="fa fa-check"></i><b>3.4</b> 다양한 분해방법</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chap3.html"><a href="chap3.html#고전적-분해방법"><i class="fa fa-check"></i><b>3.4.1</b> 고전적 분해방법</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chap3.html"><a href="chap3.html#x11"><i class="fa fa-check"></i><b>3.4.2</b> X11</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chap3.html"><a href="chap3.html#seats"><i class="fa fa-check"></i><b>3.4.3</b> SEATS</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chap3.html"><a href="chap3.html#stl"><i class="fa fa-check"></i><b>3.4.4</b> STL</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/statisticsplaybook/timeseries-playbook" target="blank">관련 깃허브 바로가기</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">시계열 공략집 with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch2" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> 시계열 모델의 기초</h1>
+<div id="시계열-예측-단계-fpp3-1.6" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> 시계열 예측 단계 (fpp3 1.6)</h2>
+<p>시계열 예측은 아래의 5개의 단계를 포함한다.</p>
+<div id="단계.-문제-정의" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> 1단계. 문제 정의</h3>
+<p>예측 분석에서 가장 어려운 부분은 바로 문제를 정의하는 것이다. 예측 문제를 정의할 때, 1. 이 예측 모델이 어떻게 사용될지, 2. 예측 모델을 누가 요구하는지, 3. 예측 결과가 어떻게 사용자의 요구와 부합하는지에 대한 이해를 필요로 한다. 예측 분석자들은 자료를 수집하고, 데이터베이스를 관리하며, 미래 계획을 수립하는 사람들과 많은 이야기를 나누어야 한다.</p>
+</div>
+<div id="단계.-정보-수집" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> 2단계. 정보 수집</h3>
+<p>수집하는 정보는 통계 데이터 뿐만 아니라 데이터를 모으고 예측을 하려는 분야의 축적된 전문성을 포함한다. 종종, 좋은 통계 모델을 수립하기 위한 충분한 양의 과거의 데이터를 모으기는 어렵다. 이럴 경우에 판단예측법 (Judgmental forecasting)이 사용된다. (fpp3 Chapter 6). 오래된 데이터는 예측하려는 시스템의 구조가 변할 경우에 덜 유용한 경우가 많다. 이럴 때에는 가장 최근의 데이터만을 사용하기도 한다. 하지만, 좋은 통계 모델은 시스템 구조의 변화를 반영할 수 있어야 한다. 불필요하게 데이터를 버리지 마십시오.</p>
+</div>
+<div id="단계.-기초-분석" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> 3단계. 기초 분석</h3>
+<p>항상 데이터의 그래프를 그리는 것으로 시작하라. 일관된 패턴이 있는가? 유의한 트렌드가 있는가? 계절성이 중요한가? 주기성이 존재한다는 증거가 있는가? 전문적 지식으로 설명해야 하는 아웃라이어가 있는가? 변수 사이의 강한 상관관계가 있는가?</p>
+</div>
+<div id="단계.-모델-선택-및-피팅" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> 4단계. 모델 선택 및 피팅</h3>
+<p>최고의 모델은 과거 자료의 사용유무, 예측 변수들 사이의 관계의 정도, 예측이 사용되는 방식에 따라 정해진다. 2 ~ 3 개의 모델을 비교하는 것이 일반적이다. 각각의 모델은 여러 가정 위에 올려진 인위적인 산물로써, 모델 내의 파라미터들은 데이터 샘플을 통해서 추정된다. <code>fpp3</code> 책에서는 다루는 모델은 아래와 같다.</p>
+<ol style="list-style-type: decimal">
+<li>Regression Model</li>
+<li>Exponential Smoothing Methods</li>
+<li>Box-Jenkins ARIMA models</li>
+<li>Dynamic regression model</li>
+<li>Hierarchical forecasting</li>
+<li>Neural networks and vector autoregression</li>
+</ol>
+</div>
+<div id="단계.-모델-사용과-평가" class="section level3" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> 5단계. 모델 사용과 평가</h3>
+<p>일단 모델을 선택하고 파라미터를 추정한 뒤에, 모델은 예측을 수행할 수 있다. 모델의 성능은 예측 기간의 데이터가 가능해진 뒤에 평가가 가능하다. 예측의 정확도를 평가하기 위한 많은 방법이 개발되어 왔다. 예측 모델을 실용적으로 사용하는 데 중요한 이슈들로써, Missing Value 및 Outlier 처리, 혹은 짧은 시계열을 어떻게 다루는가 등이 있다.</p>
+</div>
+</div>
+<div id="시계열-데이터-분포" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> 시계열 데이터 분포</h2>
+<p>먼저 <code>fpp3</code> 패키지에 있는 예제를 살펴보기로 하자. <code>fpp3</code> 패키지를 불러오면 <code>tsibble</code>, <code>feasts</code>, 와 <code>fable</code> 패키지 내의 함수를 또한 사용할 수 있다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ch2.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpp3)</span>
+<span id="cb1-2"><a href="ch2.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="ch2.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<p>호주 빅토리아 주의 전력 수요량을 30분 단위로 기록한 <code>vic_elec</code> 데이터의 2012년도 일일별 전력량을 표현한 그래프는 아래와 같다.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ch2.html#cb2-1" aria-hidden="true" tabindex="-1"></a>vic_elec <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="ch2.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="ch2.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2012</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="ch2.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_season</span>(demand, <span class="at">period =</span> <span class="st">&quot;day&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="ch2.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="ch2.html#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;MWh&quot;</span>, <span class="at">title=</span><span class="st">&quot;Electricity demand: Victoria&quot;</span>)</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>위의 그래프를 볼 때에 우리는 0시에서부터 23시 30분까지 총 48개씩의 데이터 포인트를 갖는 365개의 데이터 샘플로 볼 수 있다.</p>
+</div>
+<div id="시계열-모델-분석을-위한-기초" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> 시계열 모델 분석을 위한 기초</h2>
+<div id="확률과정-stochastic-process" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> 확률과정 (Stochastic Process)</h3>
+<p><span class="math inline">\(\{Y_t: t = 0, \pm 1 , \pm 2, \pm 3, \dots \}\)</span></p>
+<p>확률 과정은 랜덤 변수의 시퀀스로써, 관측된 시계열 데이터 분석을 위한 모델로써 사용된다.
+위 확률 과정의 분석은 평균, 분산, 공분산에서 얻은 정보를 바탕으로 이루어진다.</p>
+</div>
+<div id="평균함수-mean-function" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> 평균함수 (Mean Function)</h3>
+<p>평균함수는 아래와 같이 정의된다.</p>
+<p><span class="math inline">\(\mu_t = \rm{E} [\it Y_t \rm ] \quad for \quad t = 0, \pm1, \pm2, \dots\)</span></p>
+<p>여기에서 <span class="math inline">\(\mu_t\)</span>는 <span class="math inline">\(t\)</span>의 함수이며, 일반적으로 time point <span class="math inline">\(t\)</span>에 따라서 변할 수 있다.</p>
+</div>
+<div id="자기공분산-함수-autocovariance-function" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> 자기공분산 함수 (Autocovariance function)</h3>
+<p>자기공분산 함수는 아래와 같이 정의된다.</p>
+<p><span class="math inline">\(\gamma_{t, s} = \rm{Cov} (\it Y_t, Y_s \rm ) \quad for \quad t, s = 0, \pm1, \pm2, \dots\)</span></p>
+<p><span class="math inline">\(\rm{Cov} (\it Y_t, Y_s \rm ) = \rm{E} [(Y_t - \mu_t)(Y_t - \mu_s) \rm ]\)</span></p>
+</div>
+<div id="자기상관함수-autocorrelation-function" class="section level3" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> 자기상관함수 (Autocorrelation function)</h3>
+<p>자기상관함수는 아래와 같이 정의된다.</p>
+<p><span class="math inline">\(\rho_{t, s} = \rm{Corr} (\it Y_t, Y_s \rm ) \quad for \quad t, s = 0, \pm1, \pm2, \dots\)</span></p>
+<p><span class="math inline">\(\rm{Corr} (\it Y_t, Y_s \rm ) = \cfrac{Cov(\it Y_t, Y_s \rm )}{\sqrt{Var(Y_t)}\sqrt{Var(Y_s)}}\)</span></p>
+<p>자기상관함수의 성질</p>
+</div>
+</div>
+<div id="예제-1.-백색소음-모형-white-noise" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> 예제 1. 백색소음 모형 (White Noise)</h2>
+<p>백색소음 모형이란?</p>
+<p><span class="math inline">\(\{e_t = e_1, e_2, \dots \}\)</span> 는 서로 독립적이고 동일한 분포를 갖는 랜덤 변수들로써, 평균은 0이고, 분산은 <span class="math inline">\(\sigma_e^2\)</span>으로 가정한다. 우리는 이를 백색소음 (White Noise)라고 부른다.</p>
+<p><span class="math inline">\(\{Y_t = e_t: t = 1 , 2, 3, \dots \} \\ \mu_t = E[Y_t] = E[e_t] = 0 \\ Var(Y_t) = Var(e_t) = \sigma_e^2 \\ Cov(Y_t, Y_s) = Cov(e_t, e_s) = 0 \quad \rm{for} \quad t \neq s \\ Corr(Y_t, Y_s) = Corr(e_t, e_s) = 0 \quad \rm{for} \quad t \neq s\)</span></p>
+<p>서로 독립적인 랜덤 변수들이기 때문에, 공분산은 0이 된다.</p>
+<p>백색소음 모형 데이터의 분포</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="ch2.html#cb3-1" aria-hidden="true" tabindex="-1"></a>white.noise <span class="ot">&lt;-</span> <span class="fu">tsibble</span>(<span class="at">t =</span> <span class="fu">seq_len</span>(<span class="dv">24</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">24</span>), <span class="at">index =</span> t)</span>
+<span id="cb3-2"><a href="ch2.html#cb3-2" aria-hidden="true" tabindex="-1"></a>white.noise <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ch2.html#cb4-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb4-2"><a href="ch2.html#cb4-2" aria-hidden="true" tabindex="-1"></a>df.wn <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ind =</span> <span class="fu">integer</span>(), <span class="at">t =</span> <span class="fu">integer</span>(), <span class="at">y =</span> <span class="fu">double</span>())</span>
+<span id="cb4-3"><a href="ch2.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(N)){</span>
+<span id="cb4-4"><a href="ch2.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  white.noise <span class="ot">&lt;-</span> <span class="fu">tsibble</span>(<span class="at">t =</span> <span class="fu">seq_len</span>(<span class="dv">24</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">24</span>), <span class="at">index =</span> t)</span>
+<span id="cb4-5"><a href="ch2.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  white.noise <span class="ot">&lt;-</span> white.noise <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="ch2.html#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ind =</span> i) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="ch2.html#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(ind, t, y) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="ch2.html#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
+<span id="cb4-9"><a href="ch2.html#cb4-9" aria-hidden="true" tabindex="-1"></a>  df.wn <span class="ot">&lt;-</span> df.wn <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>(white.noise)</span>
+<span id="cb4-10"><a href="ch2.html#cb4-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-11"><a href="ch2.html#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="ch2.html#cb4-12" aria-hidden="true" tabindex="-1"></a>df.wn<span class="sc">$</span>ind <span class="ot">&lt;-</span> df.wn<span class="sc">$</span>ind <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>()</span>
+<span id="cb4-13"><a href="ch2.html#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="ch2.html#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># One sample</span></span>
+<span id="cb4-15"><a href="ch2.html#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df.wn <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ind <span class="sc">==</span> <span class="st">&quot;1&quot;</span>), <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> y, <span class="at">col =</span> ind)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ch2.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution</span></span>
+<span id="cb5-2"><a href="ch2.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df.wn, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> y, <span class="at">col =</span> ind)) <span class="sc">+</span> </span>
+<span id="cb5-3"><a href="ch2.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb5-4"><a href="ch2.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+</div>
+<div id="예제-2.-랜덤워크-모형-random-walk" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> 예제 2. 랜덤워크 모형 (Random Walk)</h2>
+<p>랜덤워크 모형은 아래와 같이 정의된다. <span class="math inline">\(t\)</span>번째 값은 <span class="math inline">\(t-1\)</span>번째 값에서 백색소음 값을 더한 것으로 정의된다.</p>
+<p><span class="math inline">\(\{Y_1 = e_1, \quad Y_t = Y_{t-1} + e_t: t = 2, 3, \dots \} \\ \mu_t = E[Y_t] = E[Y_{t-1}] + E[e_t] = \mu_{t-1} + 0 = \mu_{t-1} = \cdots = \mu_1 = 0 \\ Var(Y_t) = Var(Y_{t-1}) + Var(e_t) = Var(Y_{t-1}) + \sigma_e^2 = \cdots = t \sigma_e^2 \\ Cov(Y_t, Y_s) = Cov(Y_s + e_{s+1} + \cdots + e_t, Y_s) = Cov(Y_s, Y_s) = Var(Y_s) = s \sigma_e^2 \quad \rm{for} \quad t &gt; s \\ Corr( Y_t, Y_s) = \cfrac{Cov(\it Y_t, Y_s \rm )}{\sqrt{Var(Y_t)}\sqrt{Var(Y_s)}} = \cfrac{s\sigma_e^2}{\sqrt{t \sigma_e^2}\sqrt{s \sigma_e^2}} = \sqrt{\cfrac{s}{t}} \quad \rm{for} \quad t &gt; s\)</span></p>
+<p>위에서 우리는 랜덤 워크 모형의 평균은 0이고, 분산은 <span class="math inline">\(t\)</span>에 따라 증가하는 패턴을 보임을 알 수 있다.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ch2.html#cb6-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb6-2"><a href="ch2.html#cb6-2" aria-hidden="true" tabindex="-1"></a>df.rw <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ind =</span> <span class="fu">integer</span>(), <span class="at">t =</span> <span class="fu">integer</span>(), <span class="at">y =</span> <span class="fu">double</span>())</span>
+<span id="cb6-3"><a href="ch2.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(N)){</span>
+<span id="cb6-4"><a href="ch2.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  random.walk <span class="ot">&lt;-</span> <span class="fu">tsibble</span>(<span class="at">t =</span> <span class="fu">seq_len</span>(<span class="dv">24</span>), <span class="at">y =</span> <span class="fu">cumsum</span>(<span class="fu">rnorm</span>(<span class="dv">24</span>)), <span class="at">index =</span> t)</span>
+<span id="cb6-5"><a href="ch2.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  random.walk <span class="ot">&lt;-</span> random.walk <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="ch2.html#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ind =</span> i) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="ch2.html#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(ind, t, y) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="ch2.html#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
+<span id="cb6-9"><a href="ch2.html#cb6-9" aria-hidden="true" tabindex="-1"></a>  df.rw <span class="ot">&lt;-</span> df.rw <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>(random.walk)</span>
+<span id="cb6-10"><a href="ch2.html#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-11"><a href="ch2.html#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="ch2.html#cb6-12" aria-hidden="true" tabindex="-1"></a>df.rw<span class="sc">$</span>ind <span class="ot">&lt;-</span> df.rw<span class="sc">$</span>ind <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>()</span>
+<span id="cb6-13"><a href="ch2.html#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="ch2.html#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># One sample</span></span>
+<span id="cb6-15"><a href="ch2.html#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df.rw <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ind <span class="sc">==</span> <span class="st">&quot;1&quot;</span>), <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> y, <span class="at">col =</span> ind)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ch2.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution</span></span>
+<span id="cb7-2"><a href="ch2.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df.rw, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> y, <span class="at">col =</span> ind)) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="ch2.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="ch2.html#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+</div>
+<div id="예제-3.-이동평균-모형-moving-average" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> 예제 3. 이동평균 모형 (Moving Average)</h2>
+<p>이동평균 모형은 아래와 같이 정의된다.</p>
+<p><span class="math inline">\(\{Y_t = \frac{1}{2} (e_t + e_{t-1}): t = 2, 3, \dots \} \\ \mu_t = E[Y_t] = \frac{1}{2} (E[e_t] + E[e_{t-1}] = 0 \\ Var(Y_t) = \frac{1}{4} Var(e_t) + \frac{1}{4} Var(e_{t-1}) = \frac{1}{4} \sigma_e^2 + \frac{1}{4} \sigma_e^2 = \frac{1}{2} \sigma_e^2 \\ Cov(Y_t, Y_{t-1}) = Cov(\frac{1}{2} (e_t + e_{t-1}), \frac{1}{2} (e_{t-1} + e_{t-2})) = \cfrac{1}{4}\sigma_e^2 \\ Cov(Y_t, Y_s) = Cov(\frac{1}{2} (e_t + e_{t-1}), \frac{1}{2} (e_{s} + e_{s-1})) = 0 \quad \rm for \quad |t-s| &gt; 1 \\ Corr(Y_t, Y_t) = 1 \\ Corr(Y_t, Y_{t-1}) = 0.5 \\ Corr(Y_t, Y_s) = 0 \quad for \quad |t-s|&gt;1\)</span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ch2.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb8-2"><a href="ch2.html#cb8-2" aria-hidden="true" tabindex="-1"></a>white.noise <span class="ot">&lt;-</span> <span class="fu">tsibble</span>(<span class="at">t =</span> <span class="fu">seq_len</span>(<span class="dv">100</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">index =</span> t)</span>
+<span id="cb8-3"><a href="ch2.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="ch2.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># moving average with rollmean</span></span>
+<span id="cb8-5"><a href="ch2.html#cb8-5" aria-hidden="true" tabindex="-1"></a>white.noise.r <span class="ot">&lt;-</span> white.noise <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="ch2.html#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yavg =</span> <span class="fu">rollmean</span>(y, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">align =</span> <span class="st">&quot;right&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span> ))</span>
+<span id="cb8-7"><a href="ch2.html#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="ch2.html#cb8-8" aria-hidden="true" tabindex="-1"></a>white.noise.r</span></code></pre></div>
+<pre><code>#&gt; # A tsibble: 100 x 3 [1]
+#&gt;        t       y     yavg
+#&gt;    &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1     1  1.25   NA      
+#&gt;  2     2  1.48   NA      
+#&gt;  3     3  0.914  NA      
+#&gt;  4     4  0.820  NA      
+#&gt;  5     5 -0.0503  0.884  
+#&gt;  6     6 -0.549   0.524  
+#&gt;  7     7 -0.598   0.107  
+#&gt;  8     8  0.162  -0.0432 
+#&gt;  9     9  0.0487 -0.197  
+#&gt; 10    10  0.964   0.00546
+#&gt; # ... with 90 more rows</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ch2.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean</span></span>
+<span id="cb10-2"><a href="ch2.html#cb10-2" aria-hidden="true" tabindex="-1"></a>white.noise <span class="ot">&lt;-</span> white.noise <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="ch2.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y1 =</span> <span class="fu">lag</span>(y, <span class="at">n =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="ch2.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="ch2.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(y<span class="sc">:</span>y1), <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
+<span id="cb10-6"><a href="ch2.html#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="ch2.html#cb10-7" aria-hidden="true" tabindex="-1"></a>white.noise.r <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="ch2.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ACF</span>(yavg, <span class="at">lag_max =</span> <span class="dv">17</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="ch2.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="정상성-stationarity" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> 정상성 (Stationarity)</h2>
+<p>시계열 모델이 아래와 같은 조건을 만족할 때 이 모델은 정상성을 띤다고 한다.</p>
+<ul>
+<li><span class="math inline">\(\mu_t\)</span> 가 상수이며, 시점 <span class="math inline">\(t\)</span>와 무관하다.</li>
+<li>자기공분산함수 <span class="math inline">\(\gamma_{s,t}\)</span>는 <span class="math inline">\(|s-t|\)</span>에만 의존한다. 즉, 시점 <span class="math inline">\(t\)</span>와 무관하다.</li>
+</ul>
+<p>위의 예제에서 백색소음 모형은 정상성을 띤다고 할 수 있다.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="ch2.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution</span></span>
+<span id="cb11-2"><a href="ch2.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df.wn, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> y, <span class="at">col =</span> ind)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="ch2.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>위의 예제에서 랜덤워크 모형은 정상성을 띤다고 할 수 없다. 그 이유는 분산이 시간 <span class="math inline">\(t\)</span>가 증가함에 따라 증가하는 패턴을 보이기 때문이다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ch2.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution</span></span>
+<span id="cb12-2"><a href="ch2.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df.rw, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> y, <span class="at">col =</span> ind)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="ch2.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="02-timeseries-decomposition_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": null,
+"edit": {
+"link": "https://github.com/statisticsplaybook/timeseries-playbook/edit/main/02-timeseries-decomposition.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

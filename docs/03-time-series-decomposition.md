@@ -458,7 +458,7 @@ calculate_seasonal <- classical_decomp %>%
   mutate(seasonal_step_2 = Employed - trend) %>% 
   index_by(month(Month)) %>%
   mutate(seasonal_step_3 = mean(seasonal_step_2,na.rm =T)) %>% 
-  ungroup()
+  ungroup() %>% view
 
 seasonal_step_4 <- calculate_seasonal %>% 
   pull(seasonal_step_3) %>% unique() %>% mean()
