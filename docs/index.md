@@ -1,7 +1,7 @@
 ---
 title: "시계열 공략집 with R"
 author: "[슬기로운통계생활](https://www.youtube.com/c/statisticsplaybook)"
-date: "2022-02-06"
+date: "2022-02-27"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -50,7 +50,8 @@ With Applications in R [@cryer2008time]
 
 <div class="rmdnote">
 <h3 id="알아두기">알아두기</h3>
-<p><strong>하이라이팅과 주석들을 나중에 따로 볼 수 있다.</strong> 자주 방문하시는 분들은 가입하시고 사용하시면 여러모로 편할 것이다.</p>
+<p><strong>하이라이팅과 주석들을 나중에 따로 볼 수 있다.</strong> 자주
+방문하시는 분들은 가입하시고 사용하시면 여러모로 편할 것이다.</p>
 </div>
 
 

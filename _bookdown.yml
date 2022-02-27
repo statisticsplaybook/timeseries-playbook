@@ -19,4 +19,5 @@ rmd_files: ["index.Rmd",
             "01-intro-to-tsibble.Rmd",
             "02-timeseries-decomposition.Rmd",
             "03-time-series-decomposition.Rmd",
+            "05-the-forecasters-toolbox.Rmd",
             "references.Rmd"]
