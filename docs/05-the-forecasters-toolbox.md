@@ -111,7 +111,7 @@ fit
 #>  8 Arab World               <TSLM>
 #>  9 Argentina                <TSLM>
 #> 10 Armenia                  <TSLM>
-#> # … with 253 more rows
+#> # ... with 253 more rows
 ```
 
 tsibble의 주요 변수의 각 조합에 대한 1인당 GDP 데이터에 대해서 선형 추세
@@ -160,7 +160,7 @@ fit %>% forecast(h = "3 years")
 #>  8 Algeria        trend_model  2019  N(4489, 645311)  4489.
 #>  9 Algeria        trend_model  2020  N(4568, 647602)  4568.
 #> 10 American Samoa trend_model  2018 N(12491, 652926) 12491.
-#> # … with 779 more rows
+#> # ... with 779 more rows
 ```
 
 각 행은 각 국가에 대한 하나의 예측 기간에 해당한다.
@@ -205,7 +205,7 @@ aus_production
 #>  8 1957 Q4   320    6152    222    582        4735     6
 #>  9 1958 Q1   272    5758    199    554        4608     5
 #> 10 1958 Q2   233    5641    229    620        5196     7
-#> # … with 208 more rows
+#> # ... with 208 more rows
 ```
 
 **filter_index(.data, ...)**
@@ -237,7 +237,7 @@ bricks
 #>  8    436 1971 Q4
 #>  9    399 1972 Q1
 #> 10    461 1972 Q2
-#> # … with 130 more rows
+#> # ... with 130 more rows
 ```
 
 ### Mean method
@@ -358,7 +358,7 @@ beer_fit
 
 ```
 #> # A mable: 1 x 3
-#>      Mean   Naïve `Seasonal naïve`
+#>      Mean   Naive `Seasonal naive`
 #>   <model> <model>          <model>
 #> 1  <MEAN> <NAIVE>         <SNAIVE>
 ```
@@ -385,7 +385,7 @@ beer_fc
 #>  8 Mean   2008 Q4 N(436, 1996)  436.
 #>  9 Mean   2009 Q1 N(436, 1996)  436.
 #> 10 Mean   2009 Q2 N(436, 1996)  436.
-#> # … with 32 more rows
+#> # ... with 32 more rows
 ```
 
 
@@ -453,7 +453,7 @@ augment(beer_fit)
 #>  8 Mean   1993 Q4   512    436.  75.6   75.6 
 #>  9 Mean   1994 Q1   449    436.  12.6   12.6 
 #> 10 Mean   1994 Q2   381    436. -55.4  -55.4 
-#> # … with 170 more rows
+#> # ... with 170 more rows
 ```
 
 원본 데이터에 새롭게 3개의 열에 추가되었다. 
@@ -517,7 +517,7 @@ gafa_stock
 #>  8 AAPL   2014-01-13  75.7  77.5  75.7  76.5      64.9  94623200
 #>  9 AAPL   2014-01-14  76.9  78.1  76.8  78.1      66.1  83140400
 #> 10 AAPL   2014-01-15  79.1  80.0  78.8  79.6      67.5  97909700
-#> # … with 5,022 more rows
+#> # ... with 5,022 more rows
 ```
 
 
@@ -546,7 +546,7 @@ google_2015
 #>  8 GOOG   2015-01-13  496.  500.  490.  493.      493. 2370500     8
 #>  9 GOOG   2015-01-14  492.  500.  490.  498.      498. 2235700     9
 #> 10 GOOG   2015-01-15  503.  503.  495.  499.      499. 2715800    10
-#> # … with 242 more rows
+#> # ... with 242 more rows
 ```
 
 
@@ -646,7 +646,7 @@ aug %>% features(.innov, box_pierce, lag = 10, dof = 0)
 ```
 
 ```
-#> # A tibble: 1 × 4
+#> # A tibble: 1 x 4
 #>   Symbol .model       bp_stat bp_pvalue
 #>   <chr>  <chr>          <dbl>     <dbl>
 #> 1 GOOG   NAIVE(Close)    7.74     0.654
@@ -657,7 +657,7 @@ aug %>% features(.innov, ljung_box, lag = 10, dof = 0)
 ```
 
 ```
-#> # A tibble: 1 × 4
+#> # A tibble: 1 x 4
 #>   Symbol .model       lb_stat lb_pvalue
 #>   <chr>  <chr>          <dbl>     <dbl>
 #> 1 GOOG   NAIVE(Close)    7.91     0.637
@@ -675,7 +675,7 @@ tidy(fit)
 ```
 
 ```
-#> # A tibble: 1 × 7
+#> # A tibble: 1 x 7
 #>   Symbol .model              term  estimate std.error statistic p.value
 #>   <chr>  <chr>               <chr>    <dbl>     <dbl>     <dbl>   <dbl>
 #> 1 GOOG   RW(Close ~ drift()) b        0.944     0.705      1.34   0.182
@@ -689,7 +689,7 @@ augment(fit) %>% features(.innov, ljung_box, lag=10, dof=1)
 ```
 
 ```
-#> # A tibble: 1 × 4
+#> # A tibble: 1 x 4
 #>   Symbol .model              lb_stat lb_pvalue
 #>   <chr>  <chr>                 <dbl>     <dbl>
 #> 1 GOOG   RW(Close ~ drift())    7.91     0.543

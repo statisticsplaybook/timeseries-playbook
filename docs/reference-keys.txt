@@ -103,3 +103,12 @@ residuals
 residuals-diagnistics
 예-구글-일일-종가-예측
 자기상관에-대한-포트맨토-검정
+chap4
+몇가지-간단한-통계
+평균
+사분위수
+etc
+acf
+feat_acf
+stl-1
+feat_stl
