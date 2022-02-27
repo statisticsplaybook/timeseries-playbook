@@ -84,3 +84,22 @@ ch2
 예제-3.-이동평균-모형-moving-average
 정상성-stationarity
 >>>>>>> dbd67e7d58fa2658675cb97560ef29c0be21f2a6
+chap5
+tidy한-예측-절차
+데이터-준비
+데이터-시각화
+모델-정의
+모델-학습
+모델-성능-검증
+예측
+몇가지-간단한-예측-방법
+mean-method
+naive-method
+seasonal-naive-method
+drift-method
+fitted-value-and-residuals
+fitted-value
+residuals
+residuals-diagnistics
+예-구글-일일-종가-예측
+자기상관에-대한-포트맨토-검정
