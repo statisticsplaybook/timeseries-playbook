@@ -16,11 +16,10 @@
 이때 GDP 를 기준으로 보느냐, 1인당 GDP를 기준으로 보느냐에 따라서도 순위 차이가 꽤 있음을 확인 할 수 있다.
 
 ```{r echo=FALSE}
-
 col <- c("nation", "year", "total_GDP", "per_GDP" , "GDP_growth",
          "export","import", "pop","unemployment_rate","CPI","crude_steel_prod","internet_util")
 
-gdp_national <-read.csv("csv_data/OECD_국가의_주요지표_20220202120920.csv") 
+gdp_national <-read.csv("csv_data/OECD.csv", fileEncoding = "euc-kr") 
 gdp_national<- gdp_national %>% 
   set_names(nm = col) %>% 
   filter(! nation %in% c("세계","아시아","북아메리카","남아메리카","유럽","오세아니아","OECD"))

@@ -194,8 +194,7 @@ prison %>%
   labs(title = "Australian prison population by states",
        y= "population")
 ```
-<<<<<<< HEAD
-=======
+
 
 ## Lag plots
 
@@ -290,4 +289,4 @@ my_x %>%
 
 이러한 자기상관함수 그래프는 시계열 데이터의 특징을 파악하는데에 중요한 역할을 하게 된다. 또한 , 이러한 특성을 잘 잡아내기 때문에 ACF 함수의 형태를 기준으로 시계열 데이터를 분류하는데에도 사용된다.
 
->>>>>>> dbd67e7d58fa2658675cb97560ef29c0be21f2a6
+
