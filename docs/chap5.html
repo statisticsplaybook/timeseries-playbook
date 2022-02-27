@@ -707,12 +707,12 @@ e_t = y_t - \hat{y}_t = y_t - y_{t-1}
 <p>ACF 그래프를 확인하는 것뿐만 아니라, <span class="math inline">\(r_k\)</span>을 개별적으로 다루는 것 대신 <span class="math inline">\(r_k\)</span>의 전체 집합을 하나의 그룹으로 생각하여 자기 상관에 대한 검정을 할 수 있다. <span class="math inline">\(r_k\)</span>가 lag <span class="math inline">\(k\)</span>의 자기상관이라는 것을 상기하자.</p>
 <p>ACF 그래프에서 각 막대가 신뢰구간 안에 포함되는지를 볼 때, 우리는 암시적으로 다중 검정을 수행하고 있으며, 각 검정은 False Positive를 줄 가능성이 적다. 이러한 검정이 충분히 완료되면, 적어도 하나는 False Positive를 제공할 가능성이 높으므로, 실제로 그렇지 않은 경우에도 잔차에 자기상관이 남아있다고 결론을 내릴 수 있다.</p>
 <p>이러한 문제를 해결하기 위해, 처음 <span class="math inline">\(l\)</span>개의 자기상관이 백색잡음과정에서 얻은 것과 다른지 여부를 검정한다. 자기상관 값의 그룹에 대한 검정을 여러가지 물품을 담고 있는 여행 가방이라는 프랑스 단어를 빌려 포트맨토 검정이라 한다.</p>
-<p>이러한 검정 중에 하나를 <strong>Box-Pierce 검정</strong>이라 하며, 통계량은 다음과 같다.</p>
+<p>이러한 검정 중에 하나를 <strong>Box-Pierce 검정</strong>이라 하며, 검정통계량은 다음과 같다.</p>
 <p><span class="math display">\[
 Q = T \sum_{k=1}^l r_k^2,
 \]</span></p>
 <p><span class="math inline">\(l\)</span>은 최대 시차를 의미하며, <span class="math inline">\(T\)</span>는 관측값의 수를 의미한다. 만약 <span class="math inline">\(r_k\)</span>가 0에 가깝다면, <span class="math inline">\(Q\)</span>는 작아질 것이다. 만약 <span class="math inline">\(r_k\)</span>가 크다면, <span class="math inline">\(Q\)</span>는 커질 것이다. 우리는 비계절형 데이터의 경우 <span class="math inline">\(l = 10\)</span>으로 제안하며, 계절형 데이터의 경우 <span class="math inline">\(l = 2m\)</span>으로 제안한다. 이 때, <span class="math inline">\(m\)</span>은 계절 주기를 의미한다. 그러나 <span class="math inline">\(l\)</span>이 클 때 검정결과가 좋지 않으므로, 이러한 값들이 <span class="math inline">\(T/5\)</span>보다 크다면, <span class="math inline">\(l = T/5\)</span>를 사용할 것을 권장한다.</p>
-<p>관련된 다른 검정(더 정확한)은 <strong>Ljung-Box test</strong>이다.</p>
+<p>관련된 다른 검정 방법은 (더 정확한)<strong>Ljung-Box 검정</strong>이다. 포트맨토 검정의 경우 <span class="math inline">\(T\)</span>가 작을 경우 <span class="math inline">\(Q\)</span>가 작아지므로, 실제로는 모형이 적합하지 않은데도 모형이 잘 적합되는 것으로 판정하는 경향이 있다. Ljung and box(1978)은 이를 보완하여 다음과 같은 검정통계량을 제안했다.</p>
 <p><span class="math display">\[
 Q^{*} = T(T+2) \sum_{k=1}^l (T-k)^{-1}r_k^2.
 \]</span></p>
@@ -731,6 +731,7 @@ Q^{*} = T(T+2) \sum_{k=1}^l (T-k)^{-1}r_k^2.
 #&gt; 1 GOOG   NAIVE(Close)    7.91     0.637</code></pre>
 <p><span class="math inline">\(Q\)</span>, <span class="math inline">\(Q^{*}\)</span> 둘 다, 유의하지 않다(즉, p-value가 상대적으로 크다). 따라서 우리는 잔차가 백색잡음과정과 다르지 않다고 결론지을 수 있다.</p>
 <p>구글 일일 종가를 예측하는데 적합할 수 있는 대안은 <code>drift method</code>입니다. <code>tidy()</code>함수는 과거 데이터에서 관찰된 일일 평균 변화를 측정하는 하나의 매개변수인 표류 계수(drift coefficient)를 보여준다.</p>
+<p>v</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="chap5.html#cb43-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> google_2015 <span class="sc">%&gt;%</span> <span class="fu">model</span>(<span class="fu">RW</span>(Close <span class="sc">~</span> <span class="fu">drift</span>()))</span>
 <span id="cb43-2"><a href="chap5.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit)</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 1 × 7

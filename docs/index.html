@@ -24,7 +24,7 @@
 <meta name="author" content="슬기로운통계생활" />
 
 
-<meta name="date" content="2022-02-20" />
+<meta name="date" content="2022-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -277,6 +277,8 @@ div.csl-indent {
 <li class="chapter" data-level="4.3.2" data-path="chap5.html"><a href="chap5.html#residuals"><i class="fa fa-check"></i><b>4.3.2</b> residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="chap5.html"><a href="chap5.html#residuals-diagnistics"><i class="fa fa-check"></i><b>4.4</b> Residuals diagnistics</a></li>
+<li class="chapter" data-level="4.5" data-path="chap5.html"><a href="chap5.html#예-구글-일일-종가-예측"><i class="fa fa-check"></i><b>4.5</b> 예 : 구글 일일 종가 예측</a></li>
+<li class="chapter" data-level="4.6" data-path="chap5.html"><a href="chap5.html#자기상관에-대한-포트맨토-검정"><i class="fa fa-check"></i><b>4.6</b> 자기상관에 대한 포트맨토 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -302,7 +304,7 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">시계열 공략집 with R</h1>
 <p class="author"><em><a href="https://www.youtube.com/c/statisticsplaybook">슬기로운통계생활</a></em></p>
-<p class="date"><em>2022-02-20</em></p>
+<p class="date"><em>2022-02-27</em></p>
 </div>
 <div id="들어가며" class="section level1 unnumbered">
 <h1>들어가며</h1>
@@ -310,7 +312,7 @@ div.csl-indent {
 <p>슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다!</p>
 <p>본 교재의 많은 내용은 다음 두 권의 R 시계열 교과서를 기반으로 하고 있습니다.</p>
 <ul>
-<li>주교재 - Forecasting: Principles and Practice (이하 <code>fpp3</code>, <span class="citation"><a href="#ref-hyndman2018forecasting" role="doc-biblioref">Hyndman and Athanasopoulos</a> (<a href="#ref-hyndman2018forecasting" role="doc-biblioref">2018</a>)</span>)<br />
+<li>주교재 - Forecasting: Principles and Practice (이하 <code>fpp3</code>, <span class="citation">Hyndman and Athanasopoulos (<a href="#ref-hyndman2018forecasting" role="doc-biblioref">2018</a>)</span>)<br />
 실습 위주의 R 코드가 많은 책입니다. R 코드를 따라 치면서 시계열 입문하기 쉽게 되어있는 책이라서 선정하였습니다.
 <ul>
 <li><a href="https://amzn.to/3A0trIZ">아마존 구매</a></li>
@@ -343,7 +345,8 @@ With Applications in R <span class="citation">(<a href="#ref-cryer2008time" role
 알아두기
 </h3>
 <p>
-<strong>하이라이팅과 주석들을 나중에 따로 볼 수 있다.</strong> 자주 방문하시는 분들은 가입하시고 사용하시면 여러모로 편할 것이다.
+<strong>하이라이팅과 주석들을 나중에 따로 볼 수 있다.</strong> 자주
+방문하시는 분들은 가입하시고 사용하시면 여러모로 편할 것이다.
 </p>
 </div>
 </div>
