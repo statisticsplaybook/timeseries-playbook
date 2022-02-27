@@ -1,0 +1,144 @@
+# 시계열의 특징 {#chap4}
+
+`feats`패키지에는 **FE**atures **A**nd **S**tatistics from **T**ime **S**eries를 
+computing하는 함수들이 있다. 
+우리는 이미 시계열의 특징 몇가지를 앞에서 살펴보았다. 
+예를 들면, autocorrelations(자기상관)이 시계열의 특징으로 제시되었다. 
+
+## 몇가지 간단한 통계
+
+features() 함수를 통해 평균, 최소값, 최댓값을 계산할 수 있다. 
+
+### 평균
+
+예를 들어, tourism 데이터(분기별 호주 여행객수)를 사용하여 **mean**으로 모든 시계열의 평균을 계산할 수 있다. 
+
+```{r}
+tourism %>%
+  janitor::clean_names() %>% 
+  features(trips, list(mean = mean)) %>%
+  arrange(mean)
+```
+South Australia 주에 있는 캥거루 섬을 방문한 평균 방문객 수가 가장 적었다는 것을 알 수 있다. 
+
+### 사분위수
+
+**quantile**을 통해 최소값, 제1사분위수, 중위수, 제3사분위수, 최대값을 계산할 수 있다. 
+
+```{r}
+tourism %>% 
+    janitor::clean_names() %>% 
+    features(trips, quantile)
+```
+0%는 최소값을 의미하고, 100%는 최대값을 의미한다. 
+
+### ETC
+
+list()를 통해 평균과 최소값, 제1사분위수, 중위수, 제3사분위수, 최대값을 한번에 계산할 수 있다. 
+
+```{r}
+tourism %>% 
+    janitor::clean_names() %>% 
+    features(trips, list(avg = mean, quantile))
+```
+
+## ACF
+
+자기 상관(Autocorrelation)을 앞서 1장에서 배웠다. 
+
+### feat_acf
+자기 상관은 feat_acf를 이용하여 ACF에 관한 정보를 얻을 수 있다. 
+
+* acf1: 시계열 데이터의 1차 자기상관계수
+
+* acf10: 1~10차 자기상관계수 제곱합 
+
+* diff1_acf1: 1차 차분 시계열의 1차 자기상관계수
+
+* diff1_acf10: 1차 차분 시계열의 1~10차 자기상관계수 제곱합 
+
+* diff2_acf1: 2차 차분 시계열의 1차 자기상관계수
+
+* diff2_acf10: 2차 차분 시계열의 1~10차 자기상관계수 제곱합 
+
+* season_acf1: 첫번째 계절 시차에서의 자기상관계수 
+
+```{r}
+tourism %>% 
+    janitor::clean_names() %>% 
+    features(trips, feat_acf)
+```
+tourism 데이터(분기별 호주 여행객수)는 분기별 데이터이기 때문에 위 결과에서 season_acf1은 시차 4에서의 자기상관계수값을 의미한다. 
+
+## STL
+ 
+STL분해는 3장에서도 언급되었다. 
+STL은 Seasonal and Trend decomposition using Loess의 줄임말로 robust한 시계열 분해 방법에 해당된다. 
+
+시계열 분해는 추세요소$T_{t}$, 계절요소$S_{t}$, 관측치 $y_{t}$에서 추세요소와 계절 요소를 뺀 나머지 부분인 $R_{t}$로 나누어 볼 수 있었다. 
+
+\[
+y_{t}=T_{t}+S_{t}+R_{t}
+\]
+
+강한 추세를 가진 데이터의 경우, 계절 조덩된 데이터가 $R_{t}$보다 더 큰 변동을 가져야 한다.
+그러므로 $\frac{var(R_{t})}{var(T_{t}+R_{t})}$는 상대적으로 작아진다. 
+추세의 강도는 아래와 같이 정의되며, 0과 1사이의 값을 가진다. 
+
+\[
+F_{t}=max(0,1-\frac{var(R_{t})}{var(T_{t}+R_{t})})
+\]
+
+계절성의 강도는 아래와 같이 정의된다. 
+
+\[
+F_{s}=max(0,1-\frac{var(R_{t})}{var(S_{t}+R_{t})})
+\]
+
+### feat_stl
+feat_stl을 이용하여 STL 분해 요소를 얻을 수 있다. 
+추세와 계절성의 강도와 함께 아래와 같은 값들도 얻을 수 있다. 
+
+* seasonal_peak_year: 계절성이 가장 큰 시점
+
+* seasonal_trough_year: 계절성이 가장 작은 시점
+
+* spikiness: $R_{t}$의 분산
+
+* linearity: $T_{t}$(추세요소)의 선형성
+
+* curvature: $T_{t}$(추세요소)의 곡률
+
+* stl_e_acf1: 추세요소$T_{t}$와 계절요소$S_{t}$를 제외한 나머지 계열들의 1차 자기상관계수
+
+* stl_e_acf10: 추세요소$T_{t}$와 계절요소$S_{t}$를 제외한 나머지 계열들의 1~10차 자기상관계수 제곱합
+
+```{r}
+tourism %>%
+  janitor::clean_names() %>% 
+  features(trips, feat_stl)
+```
+
+위의 결과를 x축은 트렌드한 정도를, y축은 계절적인 정도를 표현해서 아래와 같이 시각화할 수 있다. 
+```{r}
+tourism %>%
+  janitor::clean_names() %>% 
+  features(trips, feat_stl) %>% 
+  ggplot(aes(x = trend_strength, y = seasonal_strength_year,
+             col = purpose)) +
+  geom_point() +
+  facet_wrap(vars(state))
+```
+휴가를 목적으로 하는 관광이 계절성의 강도가 가장 큰 것을 보여준다. 
+
+```{r}
+tourism %>%
+  features(Trips, feat_stl) %>%
+  filter(seasonal_strength_year == max(seasonal_strength_year)) %>%
+  left_join(tourism, by = c("State", "Region", "Purpose")) %>%
+  ggplot(aes(x = Quarter, y = Trips)) +
+  geom_line() +
+  facet_grid(vars(State, Region, Purpose))
+```
+
+
