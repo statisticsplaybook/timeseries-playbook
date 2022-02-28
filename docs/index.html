@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
-  <meta name="github-repo" content="statisticsplaybook/r-torch-playbook" />
+  <meta name="github-repo" content="statisticsplaybook/timeseries-playbook" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="시계열 공략집 with R" />
@@ -24,7 +24,7 @@
 <meta name="author" content="슬기로운통계생활" />
 
 
-<meta name="date" content="2022-01-16" />
+<meta name="date" content="2022-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,14 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.21/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 <script async defer src="https://hypothes.is/embed.js"></script>
 <meta name="google-site-verification" content="z9CiKKDExNMW8gi4-dN3X6zGa1-OXeSaIpjGFgXgHEg" />
 
@@ -136,6 +144,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="dlplaybook.css" type="text/css" />
@@ -162,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> 시계열 첫걸음, 관련 패키지의 이해</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#tsibble-그리고-fable-패키지"><i class="fa fa-check"></i><b>1.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#tsibble-feasts-그리고-fable-패키지"><i class="fa fa-check"></i><b>1.1</b> <code>tsibble</code>, <code>feasts</code> 그리고 <code>fable</code> 패키지</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#fpp3-패키지"><i class="fa fa-check"></i><b>1.2</b> <code>fpp3</code> 패키지</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#tsible-객체"><i class="fa fa-check"></i><b>1.3</b> tsible 객체</a></li>
 <li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#csv-파일로부터-tsibble-객체-만들기-연습"><i class="fa fa-check"></i><b>1.4</b> csv 파일로부터 <code>tsibble</code> 객체 만들기 연습</a></li>
@@ -170,15 +200,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#시계열-자료-구성-요소"><i class="fa fa-check"></i><b>1.6</b> 시계열 자료 구성 요소</a></li>
 <li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#seasonal-plot"><i class="fa fa-check"></i><b>1.7</b> Seasonal plot</a></li>
 <li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#scatter-plots"><i class="fa fa-check"></i><b>1.8</b> Scatter plots</a></li>
+<li class="chapter" data-level="1.9" data-path="intro.html"><a href="intro.html#lag-plots"><i class="fa fa-check"></i><b>1.9</b> Lag plots</a></li>
+<li class="chapter" data-level="1.10" data-path="intro.html"><a href="intro.html#autocorrelation"><i class="fa fa-check"></i><b>1.10</b> Autocorrelation</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> 시계열 첫걸음2, 관련 패키지의 이해</a>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> 시계열 모델의 기초</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="chap2.html"><a href="chap2.html#tsibble-그리고-fable-패키지-1"><i class="fa fa-check"></i><b>2.1</b> <code>tsibble</code> 그리고 <code>fable</code> 패키지</a></li>
-<li class="chapter" data-level="2.2" data-path="chap2.html"><a href="chap2.html#수정..-제발.."><i class="fa fa-check"></i><b>2.2</b> 수정.. 제발..</a></li>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#시계열-예측-단계-fpp3-1.6"><i class="fa fa-check"></i><b>2.1</b> 시계열 예측 단계 (fpp3 1.6)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2.html"><a href="ch2.html#단계.-문제-정의"><i class="fa fa-check"></i><b>2.1.1</b> 1단계. 문제 정의</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2.html"><a href="ch2.html#단계.-정보-수집"><i class="fa fa-check"></i><b>2.1.2</b> 2단계. 정보 수집</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2.html"><a href="ch2.html#단계.-기초-분석"><i class="fa fa-check"></i><b>2.1.3</b> 3단계. 기초 분석</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2.html"><a href="ch2.html#단계.-모델-선택-및-피팅"><i class="fa fa-check"></i><b>2.1.4</b> 4단계. 모델 선택 및 피팅</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2.html"><a href="ch2.html#단계.-모델-사용과-평가"><i class="fa fa-check"></i><b>2.1.5</b> 5단계. 모델 사용과 평가</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#시계열-데이터-분포"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 분포</a></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#시계열-모델-분석을-위한-기초"><i class="fa fa-check"></i><b>2.3</b> 시계열 모델 분석을 위한 기초</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ch2.html"><a href="ch2.html#확률과정-stochastic-process"><i class="fa fa-check"></i><b>2.3.1</b> 확률과정 (Stochastic Process)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ch2.html"><a href="ch2.html#평균함수-mean-function"><i class="fa fa-check"></i><b>2.3.2</b> 평균함수 (Mean Function)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ch2.html"><a href="ch2.html#자기공분산-함수-autocovariance-function"><i class="fa fa-check"></i><b>2.3.3</b> 자기공분산 함수 (Autocovariance function)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ch2.html"><a href="ch2.html#자기상관함수-autocorrelation-function"><i class="fa fa-check"></i><b>2.3.4</b> 자기상관함수 (Autocorrelation function)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#예제-1.-백색소음-모형-white-noise"><i class="fa fa-check"></i><b>2.4</b> 예제 1. 백색소음 모형 (White Noise)</a></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#예제-2.-랜덤워크-모형-random-walk"><i class="fa fa-check"></i><b>2.5</b> 예제 2. 랜덤워크 모형 (Random Walk)</a></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#예제-3.-이동평균-모형-moving-average"><i class="fa fa-check"></i><b>2.6</b> 예제 3. 이동평균 모형 (Moving Average)</a></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#정상성-stationarity"><i class="fa fa-check"></i><b>2.7</b> 정상성 (Stationarity)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> 시계열의 분해</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chap3.html"><a href="chap3.html#시계열-조정-및-변환"><i class="fa fa-check"></i><b>3.1</b> 시계열 조정 및 변환</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="chap3.html"><a href="chap3.html#인구조정"><i class="fa fa-check"></i><b>3.1.1</b> 인구조정</a></li>
+<li class="chapter" data-level="3.1.2" data-path="chap3.html"><a href="chap3.html#물가조정"><i class="fa fa-check"></i><b>3.1.2</b> 물가조정</a></li>
+<li class="chapter" data-level="3.1.3" data-path="chap3.html"><a href="chap3.html#달력조정"><i class="fa fa-check"></i><b>3.1.3</b> 달력조정</a></li>
+<li class="chapter" data-level="3.1.4" data-path="chap3.html"><a href="chap3.html#수학적-변환"><i class="fa fa-check"></i><b>3.1.4</b> 수학적 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="chap3.html"><a href="chap3.html#시계열의-구성요소"><i class="fa fa-check"></i><b>3.2</b> 시계열의 구성요소</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chap3.html"><a href="chap3.html#모델-설정"><i class="fa fa-check"></i><b>3.2.1</b> 모델 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap3.html"><a href="chap3.html#이동평균에-대한-이해"><i class="fa fa-check"></i><b>3.3</b> 이동평균에 대한 이해</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chap3.html"><a href="chap3.html#m이-홀수인-경우"><i class="fa fa-check"></i><b>3.3.1</b> m이 홀수인 경우</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chap3.html"><a href="chap3.html#m이-짝수인-경우"><i class="fa fa-check"></i><b>3.3.2</b> m이 짝수인 경우</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chap3.html"><a href="chap3.html#가중평균"><i class="fa fa-check"></i><b>3.3.3</b> 가중평균</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap3.html"><a href="chap3.html#다양한-분해방법"><i class="fa fa-check"></i><b>3.4</b> 다양한 분해방법</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chap3.html"><a href="chap3.html#고전적-분해방법"><i class="fa fa-check"></i><b>3.4.1</b> 고전적 분해방법</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chap3.html"><a href="chap3.html#x11"><i class="fa fa-check"></i><b>3.4.2</b> X11</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chap3.html"><a href="chap3.html#seats"><i class="fa fa-check"></i><b>3.4.3</b> SEATS</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chap3.html"><a href="chap3.html#stl"><i class="fa fa-check"></i><b>3.4.4</b> STL</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> 시계열의 특징</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chap4.html"><a href="chap4.html#몇가지-간단한-통계"><i class="fa fa-check"></i><b>4.1</b> 몇가지 간단한 통계</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="chap4.html"><a href="chap4.html#평균"><i class="fa fa-check"></i><b>4.1.1</b> 평균</a></li>
+<li class="chapter" data-level="4.1.2" data-path="chap4.html"><a href="chap4.html#사분위수"><i class="fa fa-check"></i><b>4.1.2</b> 사분위수</a></li>
+<li class="chapter" data-level="4.1.3" data-path="chap4.html"><a href="chap4.html#etc"><i class="fa fa-check"></i><b>4.1.3</b> ETC</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="chap4.html"><a href="chap4.html#acf"><i class="fa fa-check"></i><b>4.2</b> ACF</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="chap4.html"><a href="chap4.html#feat_acf"><i class="fa fa-check"></i><b>4.2.1</b> feat_acf</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap4.html"><a href="chap4.html#stl-1"><i class="fa fa-check"></i><b>4.3</b> STL</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chap4.html"><a href="chap4.html#feat_stl"><i class="fa fa-check"></i><b>4.3.1</b> feat_stl</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> 예측을 위한 도구상자</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chap5.html"><a href="chap5.html#tidy한-예측-절차"><i class="fa fa-check"></i><b>5.1</b> tidy한 예측 절차</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="chap5.html"><a href="chap5.html#데이터-준비"><i class="fa fa-check"></i><b>5.1.1</b> 데이터 준비</a></li>
+<li class="chapter" data-level="5.1.2" data-path="chap5.html"><a href="chap5.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1.2</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.1.3" data-path="chap5.html"><a href="chap5.html#모델-정의"><i class="fa fa-check"></i><b>5.1.3</b> 모델 정의</a></li>
+<li class="chapter" data-level="5.1.4" data-path="chap5.html"><a href="chap5.html#모델-학습"><i class="fa fa-check"></i><b>5.1.4</b> 모델 학습</a></li>
+<li class="chapter" data-level="5.1.5" data-path="chap5.html"><a href="chap5.html#모델-성능-검증"><i class="fa fa-check"></i><b>5.1.5</b> 모델 성능 검증</a></li>
+<li class="chapter" data-level="5.1.6" data-path="chap5.html"><a href="chap5.html#예측"><i class="fa fa-check"></i><b>5.1.6</b> 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="chap5.html"><a href="chap5.html#몇가지-간단한-예측-방법"><i class="fa fa-check"></i><b>5.2</b> 몇가지 간단한 예측 방법</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="chap5.html"><a href="chap5.html#mean-method"><i class="fa fa-check"></i><b>5.2.1</b> Mean method</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap5.html"><a href="chap5.html#naive-method"><i class="fa fa-check"></i><b>5.2.2</b> Naive method</a></li>
+<li class="chapter" data-level="5.2.3" data-path="chap5.html"><a href="chap5.html#seasonal-naive-method"><i class="fa fa-check"></i><b>5.2.3</b> Seasonal naive method</a></li>
+<li class="chapter" data-level="5.2.4" data-path="chap5.html"><a href="chap5.html#drift-method"><i class="fa fa-check"></i><b>5.2.4</b> Drift method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap5.html"><a href="chap5.html#fitted-value-and-residuals"><i class="fa fa-check"></i><b>5.3</b> fitted value and residuals</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="chap5.html"><a href="chap5.html#fitted-value"><i class="fa fa-check"></i><b>5.3.1</b> fitted value</a></li>
+<li class="chapter" data-level="5.3.2" data-path="chap5.html"><a href="chap5.html#residuals"><i class="fa fa-check"></i><b>5.3.2</b> residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="chap5.html"><a href="chap5.html#residuals-diagnistics"><i class="fa fa-check"></i><b>5.4</b> Residuals diagnistics</a></li>
+<li class="chapter" data-level="5.5" data-path="chap5.html"><a href="chap5.html#예-구글-일일-종가-예측"><i class="fa fa-check"></i><b>5.5</b> 예 : 구글 일일 종가 예측</a></li>
+<li class="chapter" data-level="5.6" data-path="chap5.html"><a href="chap5.html#자기상관에-대한-포트맨토-검정"><i class="fa fa-check"></i><b>5.6</b> 자기상관에 대한 포트맨토 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/statisticsplaybook/r-torch-playbook" target="blank">Published with bookdown</a></li>
+<li><a href="https://github.com/statisticsplaybook/timeseries-playbook" target="blank">관련 깃허브 바로가기</a></li>
 
 </ul>
 
@@ -200,12 +321,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">시계열 공략집 with R</h1>
 <p class="author"><em><a href="https://www.youtube.com/c/statisticsplaybook">슬기로운통계생활</a></em></p>
-<p class="date"><em>2022-01-16</em></p>
+<p class="date"><em>2022-02-28</em></p>
 </div>
 <div id="들어가며" class="section level1 unnumbered">
 <h1>들어가며</h1>
-<p><img src="image/deeplearning-playbook.png" /></p>
-<p>슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다! 많은 내용은 다음의 R 시계열 교과서인 <a href="https://otexts.com/fpp3/">Forecasting: Principles and Practice (이하 <code>fpp3</code>)</a> 책을 기반으로 하고 있으나, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다.</p>
+<p><img src="image/timeseries-playbook.png" /></p>
+<p>슬기로운 통계생활에서 2022년을 맞이하여 새롭게 시작한 시계열 스터디 내욜을 정리해놓은 레포입니다!</p>
+<p>본 교재의 많은 내용은 다음 두 권의 R 시계열 교과서를 기반으로 하고 있습니다.</p>
+<ul>
+<li>주교재 - Forecasting: Principles and Practice (이하 <code>fpp3</code>, <span class="citation"><a href="#ref-hyndman2018forecasting" role="doc-biblioref">Hyndman and Athanasopoulos</a> (<a href="#ref-hyndman2018forecasting" role="doc-biblioref">2018</a>)</span>)<br />
+실습 위주의 R 코드가 많은 책입니다. R 코드를 따라 치면서 시계열 입문하기 쉽게 되어있는 책이라서 선정하였습니다.
+<ul>
+<li><a href="https://amzn.to/3A0trIZ">아마존 구매</a></li>
+<li><a href="https://otexts.com/fpp3/">온라인 페이지</a></li>
+</ul></li>
+<li>부교재 - Time Series Analysis
+With Applications in R <span class="citation">(<a href="#ref-cryer2008time" role="doc-biblioref">Cryer and Chan 2008</a>)</span><br />
+주교재에서 부족한 이론이 잘 채워져있는 책이고, 제가 수리 통계를 배웠던 챈 교수님이 쓰신 책이라서 선정하였습니다.
+<ul>
+<li><a href="https://amzn.to/3rqi3lw">아마존 구매</a></li>
+</ul></li>
+</ul>
+<p>또한 전반적인 내용이 위의 두 교재를 기반으로 작성이 되었지만, 슬기로운 통계생활의 입맛에 맞게 내용이 추가 혹은 변경되어 있음을 알려드립니다.</p>
 <div id="공략집-사용법" class="section level2 unnumbered">
 <h2>공략집 사용법</h2>
 <ul>
@@ -242,6 +379,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-cryer2008time" class="csl-entry">
+Cryer, Jonathan D, and Kung-Sik Chan. 2008. <em>Time Series Analysis: With Applications in r</em>. Vol. 2. Springer.
+</div>
+<div id="ref-hyndman2018forecasting" class="csl-entry">
+Hyndman, Rob J, and George Athanasopoulos. 2018. <em>Forecasting: Principles and Practice</em>. OTexts.
+</div>
+</div>
             </section>
 
           </div>
@@ -265,7 +411,7 @@ gitbook.start({
 "sharing": null,
 "fontsettings": null,
 "edit": {
-"link": "https://github.com/statisticsplaybook/deeplearning-playbook/edit/master/index.Rmd",
+"link": "https://github.com/statisticsplaybook/timeseries-playbook/edit/main/index.Rmd",
 "text": "Edit"
 },
 "history": {

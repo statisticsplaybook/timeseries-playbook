@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 시계열의 특징 | 시계열 공략집 with R</title>
+  <meta name="description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 시계열의 특징 | 시계열 공략집 with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  <meta name="github-repo" content="statisticsplaybook/timeseries-playbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 시계열의 특징 | 시계열 공략집 with R" />
+  
+  <meta name="twitter:description" content="복잡한 시계열 공부, 차근차근 공부해서 정복해보시죠! 본격 R 시계열 공략집" />
+  
+
+<meta name="author" content="슬기로운통계생활" />
+
+
+<meta name="date" content="2022-02-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chap3.html"/>
+<link rel="next" href="chap5.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.21/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<script async defer src="https://hypothes.is/embed.js"></script>
+<meta name="google-site-verification" content="z9CiKKDExNMW8gi4-dN3X6zGa1-OXeSaIpjGFgXgHEg" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MYZBEL4H2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6MYZBEL4H2');
+</script>
+
+<script data-ad-client="ca-pub-3877288275353516" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="dlplaybook.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">시계열 공략집 with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>들어가며</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#공략집-사용법"><i class="fa fa-check"></i>공략집 사용법</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#설치하기"><i class="fa fa-check"></i>설치하기</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#기본-패키지"><i class="fa fa-check"></i>기본 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> 시계열 첫걸음, 관련 패키지의 이해</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#tsibble-feasts-그리고-fable-패키지"><i class="fa fa-check"></i><b>1.1</b> <code>tsibble</code>, <code>feasts</code> 그리고 <code>fable</code> 패키지</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#fpp3-패키지"><i class="fa fa-check"></i><b>1.2</b> <code>fpp3</code> 패키지</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#tsible-객체"><i class="fa fa-check"></i><b>1.3</b> tsible 객체</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#csv-파일로부터-tsibble-객체-만들기-연습"><i class="fa fa-check"></i><b>1.4</b> csv 파일로부터 <code>tsibble</code> 객체 만들기 연습</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#time-plots"><i class="fa fa-check"></i><b>1.5</b> Time plots</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#시계열-자료-구성-요소"><i class="fa fa-check"></i><b>1.6</b> 시계열 자료 구성 요소</a></li>
+<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#seasonal-plot"><i class="fa fa-check"></i><b>1.7</b> Seasonal plot</a></li>
+<li class="chapter" data-level="1.8" data-path="intro.html"><a href="intro.html#scatter-plots"><i class="fa fa-check"></i><b>1.8</b> Scatter plots</a></li>
+<li class="chapter" data-level="1.9" data-path="intro.html"><a href="intro.html#lag-plots"><i class="fa fa-check"></i><b>1.9</b> Lag plots</a></li>
+<li class="chapter" data-level="1.10" data-path="intro.html"><a href="intro.html#autocorrelation"><i class="fa fa-check"></i><b>1.10</b> Autocorrelation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2.html"><a href="ch2.html"><i class="fa fa-check"></i><b>2</b> 시계열 모델의 기초</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2.html"><a href="ch2.html#시계열-예측-단계-fpp3-1.6"><i class="fa fa-check"></i><b>2.1</b> 시계열 예측 단계 (fpp3 1.6)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2.html"><a href="ch2.html#단계.-문제-정의"><i class="fa fa-check"></i><b>2.1.1</b> 1단계. 문제 정의</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2.html"><a href="ch2.html#단계.-정보-수집"><i class="fa fa-check"></i><b>2.1.2</b> 2단계. 정보 수집</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2.html"><a href="ch2.html#단계.-기초-분석"><i class="fa fa-check"></i><b>2.1.3</b> 3단계. 기초 분석</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2.html"><a href="ch2.html#단계.-모델-선택-및-피팅"><i class="fa fa-check"></i><b>2.1.4</b> 4단계. 모델 선택 및 피팅</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2.html"><a href="ch2.html#단계.-모델-사용과-평가"><i class="fa fa-check"></i><b>2.1.5</b> 5단계. 모델 사용과 평가</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch2.html"><a href="ch2.html#시계열-데이터-분포"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 분포</a></li>
+<li class="chapter" data-level="2.3" data-path="ch2.html"><a href="ch2.html#시계열-모델-분석을-위한-기초"><i class="fa fa-check"></i><b>2.3</b> 시계열 모델 분석을 위한 기초</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ch2.html"><a href="ch2.html#확률과정-stochastic-process"><i class="fa fa-check"></i><b>2.3.1</b> 확률과정 (Stochastic Process)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ch2.html"><a href="ch2.html#평균함수-mean-function"><i class="fa fa-check"></i><b>2.3.2</b> 평균함수 (Mean Function)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ch2.html"><a href="ch2.html#자기공분산-함수-autocovariance-function"><i class="fa fa-check"></i><b>2.3.3</b> 자기공분산 함수 (Autocovariance function)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ch2.html"><a href="ch2.html#자기상관함수-autocorrelation-function"><i class="fa fa-check"></i><b>2.3.4</b> 자기상관함수 (Autocorrelation function)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch2.html"><a href="ch2.html#예제-1.-백색소음-모형-white-noise"><i class="fa fa-check"></i><b>2.4</b> 예제 1. 백색소음 모형 (White Noise)</a></li>
+<li class="chapter" data-level="2.5" data-path="ch2.html"><a href="ch2.html#예제-2.-랜덤워크-모형-random-walk"><i class="fa fa-check"></i><b>2.5</b> 예제 2. 랜덤워크 모형 (Random Walk)</a></li>
+<li class="chapter" data-level="2.6" data-path="ch2.html"><a href="ch2.html#예제-3.-이동평균-모형-moving-average"><i class="fa fa-check"></i><b>2.6</b> 예제 3. 이동평균 모형 (Moving Average)</a></li>
+<li class="chapter" data-level="2.7" data-path="ch2.html"><a href="ch2.html#정상성-stationarity"><i class="fa fa-check"></i><b>2.7</b> 정상성 (Stationarity)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> 시계열의 분해</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chap3.html"><a href="chap3.html#시계열-조정-및-변환"><i class="fa fa-check"></i><b>3.1</b> 시계열 조정 및 변환</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="chap3.html"><a href="chap3.html#인구조정"><i class="fa fa-check"></i><b>3.1.1</b> 인구조정</a></li>
+<li class="chapter" data-level="3.1.2" data-path="chap3.html"><a href="chap3.html#물가조정"><i class="fa fa-check"></i><b>3.1.2</b> 물가조정</a></li>
+<li class="chapter" data-level="3.1.3" data-path="chap3.html"><a href="chap3.html#달력조정"><i class="fa fa-check"></i><b>3.1.3</b> 달력조정</a></li>
+<li class="chapter" data-level="3.1.4" data-path="chap3.html"><a href="chap3.html#수학적-변환"><i class="fa fa-check"></i><b>3.1.4</b> 수학적 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="chap3.html"><a href="chap3.html#시계열의-구성요소"><i class="fa fa-check"></i><b>3.2</b> 시계열의 구성요소</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="chap3.html"><a href="chap3.html#모델-설정"><i class="fa fa-check"></i><b>3.2.1</b> 모델 설정</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="chap3.html"><a href="chap3.html#이동평균에-대한-이해"><i class="fa fa-check"></i><b>3.3</b> 이동평균에 대한 이해</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chap3.html"><a href="chap3.html#m이-홀수인-경우"><i class="fa fa-check"></i><b>3.3.1</b> m이 홀수인 경우</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chap3.html"><a href="chap3.html#m이-짝수인-경우"><i class="fa fa-check"></i><b>3.3.2</b> m이 짝수인 경우</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chap3.html"><a href="chap3.html#가중평균"><i class="fa fa-check"></i><b>3.3.3</b> 가중평균</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chap3.html"><a href="chap3.html#다양한-분해방법"><i class="fa fa-check"></i><b>3.4</b> 다양한 분해방법</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chap3.html"><a href="chap3.html#고전적-분해방법"><i class="fa fa-check"></i><b>3.4.1</b> 고전적 분해방법</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chap3.html"><a href="chap3.html#x11"><i class="fa fa-check"></i><b>3.4.2</b> X11</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chap3.html"><a href="chap3.html#seats"><i class="fa fa-check"></i><b>3.4.3</b> SEATS</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chap3.html"><a href="chap3.html#stl"><i class="fa fa-check"></i><b>3.4.4</b> STL</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> 시계열의 특징</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chap4.html"><a href="chap4.html#몇가지-간단한-통계"><i class="fa fa-check"></i><b>4.1</b> 몇가지 간단한 통계</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="chap4.html"><a href="chap4.html#평균"><i class="fa fa-check"></i><b>4.1.1</b> 평균</a></li>
+<li class="chapter" data-level="4.1.2" data-path="chap4.html"><a href="chap4.html#사분위수"><i class="fa fa-check"></i><b>4.1.2</b> 사분위수</a></li>
+<li class="chapter" data-level="4.1.3" data-path="chap4.html"><a href="chap4.html#etc"><i class="fa fa-check"></i><b>4.1.3</b> ETC</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="chap4.html"><a href="chap4.html#acf"><i class="fa fa-check"></i><b>4.2</b> ACF</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="chap4.html"><a href="chap4.html#feat_acf"><i class="fa fa-check"></i><b>4.2.1</b> feat_acf</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chap4.html"><a href="chap4.html#stl-1"><i class="fa fa-check"></i><b>4.3</b> STL</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chap4.html"><a href="chap4.html#feat_stl"><i class="fa fa-check"></i><b>4.3.1</b> feat_stl</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> 예측을 위한 도구상자</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chap5.html"><a href="chap5.html#tidy한-예측-절차"><i class="fa fa-check"></i><b>5.1</b> tidy한 예측 절차</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="chap5.html"><a href="chap5.html#데이터-준비"><i class="fa fa-check"></i><b>5.1.1</b> 데이터 준비</a></li>
+<li class="chapter" data-level="5.1.2" data-path="chap5.html"><a href="chap5.html#데이터-시각화"><i class="fa fa-check"></i><b>5.1.2</b> 데이터 시각화</a></li>
+<li class="chapter" data-level="5.1.3" data-path="chap5.html"><a href="chap5.html#모델-정의"><i class="fa fa-check"></i><b>5.1.3</b> 모델 정의</a></li>
+<li class="chapter" data-level="5.1.4" data-path="chap5.html"><a href="chap5.html#모델-학습"><i class="fa fa-check"></i><b>5.1.4</b> 모델 학습</a></li>
+<li class="chapter" data-level="5.1.5" data-path="chap5.html"><a href="chap5.html#모델-성능-검증"><i class="fa fa-check"></i><b>5.1.5</b> 모델 성능 검증</a></li>
+<li class="chapter" data-level="5.1.6" data-path="chap5.html"><a href="chap5.html#예측"><i class="fa fa-check"></i><b>5.1.6</b> 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="chap5.html"><a href="chap5.html#몇가지-간단한-예측-방법"><i class="fa fa-check"></i><b>5.2</b> 몇가지 간단한 예측 방법</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="chap5.html"><a href="chap5.html#mean-method"><i class="fa fa-check"></i><b>5.2.1</b> Mean method</a></li>
+<li class="chapter" data-level="5.2.2" data-path="chap5.html"><a href="chap5.html#naive-method"><i class="fa fa-check"></i><b>5.2.2</b> Naive method</a></li>
+<li class="chapter" data-level="5.2.3" data-path="chap5.html"><a href="chap5.html#seasonal-naive-method"><i class="fa fa-check"></i><b>5.2.3</b> Seasonal naive method</a></li>
+<li class="chapter" data-level="5.2.4" data-path="chap5.html"><a href="chap5.html#drift-method"><i class="fa fa-check"></i><b>5.2.4</b> Drift method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chap5.html"><a href="chap5.html#fitted-value-and-residuals"><i class="fa fa-check"></i><b>5.3</b> fitted value and residuals</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="chap5.html"><a href="chap5.html#fitted-value"><i class="fa fa-check"></i><b>5.3.1</b> fitted value</a></li>
+<li class="chapter" data-level="5.3.2" data-path="chap5.html"><a href="chap5.html#residuals"><i class="fa fa-check"></i><b>5.3.2</b> residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="chap5.html"><a href="chap5.html#residuals-diagnistics"><i class="fa fa-check"></i><b>5.4</b> Residuals diagnistics</a></li>
+<li class="chapter" data-level="5.5" data-path="chap5.html"><a href="chap5.html#예-구글-일일-종가-예측"><i class="fa fa-check"></i><b>5.5</b> 예 : 구글 일일 종가 예측</a></li>
+<li class="chapter" data-level="5.6" data-path="chap5.html"><a href="chap5.html#자기상관에-대한-포트맨토-검정"><i class="fa fa-check"></i><b>5.6</b> 자기상관에 대한 포트맨토 검정</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/statisticsplaybook/timeseries-playbook" target="blank">관련 깃허브 바로가기</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">시계열 공략집 with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap4" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 시계열의 특징</h1>
+<p><code>feats</code>패키지에는 <strong>FE</strong>atures <strong>A</strong>nd <strong>S</strong>tatistics from <strong>T</strong>ime <strong>S</strong>eries를
+computing하는 함수들이 있다.
+우리는 이미 시계열의 특징 몇가지를 앞에서 살펴보았다.
+예를 들면, autocorrelations(자기상관)이 시계열의 특징으로 제시되었다.</p>
+<div id="몇가지-간단한-통계" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> 몇가지 간단한 통계</h2>
+<p>features() 함수를 통해 평균, 최소값, 최댓값을 계산할 수 있다.</p>
+<div id="평균" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> 평균</h3>
+<p>예를 들어, tourism 데이터(분기별 호주 여행객수)를 사용하여 <strong>mean</strong>으로 모든 시계열의 평균을 계산할 수 있다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="chap4.html#cb1-1" aria-hidden="true" tabindex="-1"></a>tourism <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="chap4.html#cb1-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="chap4.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">features</span>(trips, <span class="fu">list</span>(<span class="at">mean =</span> mean)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="chap4.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mean)</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 304 x 4
+#&gt;    region          state              purpose   mean
+#&gt;    &lt;chr&gt;           &lt;chr&gt;              &lt;chr&gt;    &lt;dbl&gt;
+#&gt;  1 Kangaroo Island South Australia    Other    0.340
+#&gt;  2 MacDonnell      Northern Territory Other    0.449
+#&gt;  3 Wilderness West Tasmania           Other    0.478
+#&gt;  4 Barkly          Northern Territory Other    0.632
+#&gt;  5 Clare Valley    South Australia    Other    0.898
+#&gt;  6 Barossa         South Australia    Other    1.02 
+#&gt;  7 Kakadu Arnhem   Northern Territory Other    1.04 
+#&gt;  8 Lasseter        Northern Territory Other    1.14 
+#&gt;  9 Wimmera         Victoria           Other    1.15 
+#&gt; 10 MacDonnell      Northern Territory Visiting 1.18 
+#&gt; # ... with 294 more rows</code></pre>
+<p>South Australia 주에 있는 캥거루 섬을 방문한 평균 방문객 수가 가장 적었다는 것을 알 수 있다.</p>
+</div>
+<div id="사분위수" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> 사분위수</h3>
+<p><strong>quantile</strong>을 통해 최소값, 제1사분위수, 중위수, 제3사분위수, 최대값을 계산할 수 있다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chap4.html#cb3-1" aria-hidden="true" tabindex="-1"></a>tourism <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="chap4.html#cb3-2" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="chap4.html#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">features</span>(trips, quantile)</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 304 x 8
+#&gt;    region         state             purpose    `0%`  `25%`   `50%`  `75%` `100%`
+#&gt;    &lt;chr&gt;          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 Adelaide       South Australia   Busine~  68.7   134.   153.    177.   242.  
+#&gt;  2 Adelaide       South Australia   Holiday 108.    135.   154.    172.   224.  
+#&gt;  3 Adelaide       South Australia   Other    25.9    43.9   53.8    62.5  107.  
+#&gt;  4 Adelaide       South Australia   Visiti~ 137.    179.   206.    229.   270.  
+#&gt;  5 Adelaide Hills South Australia   Busine~   0       0      1.26    3.92  28.6 
+#&gt;  6 Adelaide Hills South Australia   Holiday   0       5.77   8.52   14.1   35.8 
+#&gt;  7 Adelaide Hills South Australia   Other     0       0      0.908   2.09   8.95
+#&gt;  8 Adelaide Hills South Australia   Visiti~   0.778   8.91  12.2    16.8   81.1 
+#&gt;  9 Alice Springs  Northern Territo~ Busine~   1.01    9.13  13.3    18.5   34.1 
+#&gt; 10 Alice Springs  Northern Territo~ Holiday   2.81   16.9   31.5    44.8   76.5 
+#&gt; # ... with 294 more rows</code></pre>
+<p>0%는 최소값을 의미하고, 100%는 최대값을 의미한다.</p>
+</div>
+<div id="etc" class="section level3" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> ETC</h3>
+<p>list()를 통해 평균과 최소값, 제1사분위수, 중위수, 제3사분위수, 최대값을 한번에 계산할 수 있다.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chap4.html#cb5-1" aria-hidden="true" tabindex="-1"></a>tourism <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="chap4.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="chap4.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">features</span>(trips, <span class="fu">list</span>(<span class="at">avg =</span> mean, quantile))</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 304 x 9
+#&gt;    region         state      purpose    avg    `0%`  `25%`   `50%`  `75%` `100%`
+#&gt;    &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 Adelaide       South Aus~ Busine~ 156.    68.7   134.   153.    177.   242.  
+#&gt;  2 Adelaide       South Aus~ Holiday 157.   108.    135.   154.    172.   224.  
+#&gt;  3 Adelaide       South Aus~ Other    56.6   25.9    43.9   53.8    62.5  107.  
+#&gt;  4 Adelaide       South Aus~ Visiti~ 205.   137.    179.   206.    229.   270.  
+#&gt;  5 Adelaide Hills South Aus~ Busine~   2.66   0       0      1.26    3.92  28.6 
+#&gt;  6 Adelaide Hills South Aus~ Holiday  10.5    0       5.77   8.52   14.1   35.8 
+#&gt;  7 Adelaide Hills South Aus~ Other     1.40   0       0      0.908   2.09   8.95
+#&gt;  8 Adelaide Hills South Aus~ Visiti~  14.2    0.778   8.91  12.2    16.8   81.1 
+#&gt;  9 Alice Springs  Northern ~ Busine~  14.6    1.01    9.13  13.3    18.5   34.1 
+#&gt; 10 Alice Springs  Northern ~ Holiday  31.9    2.81   16.9   31.5    44.8   76.5 
+#&gt; # ... with 294 more rows</code></pre>
+</div>
+</div>
+<div id="acf" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> ACF</h2>
+<p>자기 상관(Autocorrelation)을 앞서 1장에서 배웠다.</p>
+<div id="feat_acf" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> feat_acf</h3>
+<p>자기 상관은 feat_acf를 이용하여 ACF에 관한 정보를 얻을 수 있다.</p>
+<ul>
+<li><p>acf1: 시계열 데이터의 1차 자기상관계수</p></li>
+<li><p>acf10: 1~10차 자기상관계수 제곱합</p></li>
+<li><p>diff1_acf1: 1차 차분 시계열의 1차 자기상관계수</p></li>
+<li><p>diff1_acf10: 1차 차분 시계열의 1~10차 자기상관계수 제곱합</p></li>
+<li><p>diff2_acf1: 2차 차분 시계열의 1차 자기상관계수</p></li>
+<li><p>diff2_acf10: 2차 차분 시계열의 1~10차 자기상관계수 제곱합</p></li>
+<li><p>season_acf1: 첫번째 계절 시차에서의 자기상관계수</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chap4.html#cb7-1" aria-hidden="true" tabindex="-1"></a>tourism <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="chap4.html#cb7-2" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="chap4.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">features</span>(trips, feat_acf)</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 304 x 10
+#&gt;    region         state purpose     acf1 acf10 diff1_acf1 diff1_acf10 diff2_acf1
+#&gt;    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  1 Adelaide       Sout~ Busine~  0.0333  0.131     -0.520       0.463     -0.676
+#&gt;  2 Adelaide       Sout~ Holiday  0.0456  0.372     -0.343       0.614     -0.487
+#&gt;  3 Adelaide       Sout~ Other    0.517   1.15      -0.409       0.383     -0.675
+#&gt;  4 Adelaide       Sout~ Visiti~  0.0684  0.294     -0.394       0.452     -0.518
+#&gt;  5 Adelaide Hills Sout~ Busine~  0.0709  0.134     -0.580       0.415     -0.750
+#&gt;  6 Adelaide Hills Sout~ Holiday  0.131   0.313     -0.536       0.500     -0.716
+#&gt;  7 Adelaide Hills Sout~ Other    0.261   0.330     -0.253       0.317     -0.457
+#&gt;  8 Adelaide Hills Sout~ Visiti~  0.139   0.117     -0.472       0.239     -0.626
+#&gt;  9 Alice Springs  Nort~ Busine~  0.217   0.367     -0.500       0.381     -0.658
+#&gt; 10 Alice Springs  Nort~ Holiday -0.00660 2.11      -0.153       2.11      -0.274
+#&gt; # ... with 294 more rows, and 2 more variables: diff2_acf10 &lt;dbl&gt;,
+#&gt; #   season_acf1 &lt;dbl&gt;</code></pre>
+<p>tourism 데이터(분기별 호주 여행객수)는 분기별 데이터이기 때문에 위 결과에서 season_acf1은 시차 4에서의 자기상관계수값을 의미한다.</p>
+</div>
+</div>
+<div id="stl-1" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> STL</h2>
+<p>STL분해는 3장에서도 언급되었다.
+STL은 Seasonal and Trend decomposition using Loess의 줄임말로 robust한 시계열 분해 방법에 해당된다.</p>
+<p>시계열 분해는 추세요소<span class="math inline">\(T_{t}\)</span>, 계절요소<span class="math inline">\(S_{t}\)</span>, 관측치 <span class="math inline">\(y_{t}\)</span>에서 추세요소와 계절 요소를 뺀 나머지 부분인 <span class="math inline">\(R_{t}\)</span>로 나누어 볼 수 있었다.</p>
+<p><span class="math display">\[
+y_{t}=T_{t}+S_{t}+R_{t}
+\]</span></p>
+<p>강한 추세를 가진 데이터의 경우, 계절 조덩된 데이터가 <span class="math inline">\(R_{t}\)</span>보다 더 큰 변동을 가져야 한다.
+그러므로 <span class="math inline">\(\frac{var(R_{t})}{var(T_{t}+R_{t})}\)</span>는 상대적으로 작아진다.
+추세의 강도는 아래와 같이 정의되며, 0과 1사이의 값을 가진다.</p>
+<p><span class="math display">\[
+F_{t}=max(0,1-\frac{var(R_{t})}{var(T_{t}+R_{t})})
+\]</span></p>
+<p>계절성의 강도는 아래와 같이 정의된다.</p>
+<p><span class="math display">\[
+F_{s}=max(0,1-\frac{var(R_{t})}{var(S_{t}+R_{t})})
+\]</span></p>
+<div id="feat_stl" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> feat_stl</h3>
+<p>feat_stl을 이용하여 STL 분해 요소를 얻을 수 있다.
+추세와 계절성의 강도와 함께 아래와 같은 값들도 얻을 수 있다.</p>
+<ul>
+<li><p>seasonal_peak_year: 계절성이 가장 큰 시점</p></li>
+<li><p>seasonal_trough_year: 계절성이 가장 작은 시점</p></li>
+<li><p>spikiness: <span class="math inline">\(R_{t}\)</span>의 분산</p></li>
+<li><p>linearity: <span class="math inline">\(T_{t}\)</span>(추세요소)의 선형성</p></li>
+<li><p>curvature: <span class="math inline">\(T_{t}\)</span>(추세요소)의 곡률</p></li>
+<li><p>stl_e_acf1: 추세요소<span class="math inline">\(T_{t}\)</span>와 계절요소<span class="math inline">\(S_{t}\)</span>를 제외한 나머지 계열들의 1차 자기상관계수</p></li>
+<li><p>stl_e_acf10: 추세요소<span class="math inline">\(T_{t}\)</span>와 계절요소<span class="math inline">\(S_{t}\)</span>를 제외한 나머지 계열들의 1~10차 자기상관계수 제곱합</p></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="chap4.html#cb9-1" aria-hidden="true" tabindex="-1"></a>tourism <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="chap4.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="chap4.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">features</span>(trips, feat_stl)</span></code></pre></div>
+<pre><code>#&gt; # A tibble: 304 x 12
+#&gt;    region         state purpose trend_strength seasonal_streng~ seasonal_peak_y~
+#&gt;    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+#&gt;  1 Adelaide       Sout~ Busine~          0.464            0.407                3
+#&gt;  2 Adelaide       Sout~ Holiday          0.554            0.619                1
+#&gt;  3 Adelaide       Sout~ Other            0.746            0.202                2
+#&gt;  4 Adelaide       Sout~ Visiti~          0.435            0.452                1
+#&gt;  5 Adelaide Hills Sout~ Busine~          0.464            0.179                3
+#&gt;  6 Adelaide Hills Sout~ Holiday          0.528            0.296                2
+#&gt;  7 Adelaide Hills Sout~ Other            0.593            0.404                2
+#&gt;  8 Adelaide Hills Sout~ Visiti~          0.488            0.254                0
+#&gt;  9 Alice Springs  Nort~ Busine~          0.534            0.251                0
+#&gt; 10 Alice Springs  Nort~ Holiday          0.381            0.832                3
+#&gt; # ... with 294 more rows, and 6 more variables: seasonal_trough_year &lt;dbl&gt;,
+#&gt; #   spikiness &lt;dbl&gt;, linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;,
+#&gt; #   stl_e_acf10 &lt;dbl&gt;</code></pre>
+<p>위의 결과를 x축은 트렌드한 정도를, y축은 계절적인 정도를 표현해서 아래와 같이 시각화할 수 있다.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chap4.html#cb11-1" aria-hidden="true" tabindex="-1"></a>tourism <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="chap4.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="chap4.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">features</span>(trips, feat_stl) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="chap4.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trend_strength, <span class="at">y =</span> seasonal_strength_year,</span>
+<span id="cb11-5"><a href="chap4.html#cb11-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> purpose)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="chap4.html#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-7"><a href="chap4.html#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(state))</span></code></pre></div>
+<p><img src="04-time-series-features_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+휴가를 목적으로 하는 관광이 계절성의 강도가 가장 큰 것을 보여준다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chap4.html#cb12-1" aria-hidden="true" tabindex="-1"></a>tourism <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="chap4.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">features</span>(Trips, feat_stl) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="chap4.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(seasonal_strength_year <span class="sc">==</span> <span class="fu">max</span>(seasonal_strength_year)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="chap4.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(tourism, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;State&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;Purpose&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="chap4.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Quarter, <span class="at">y =</span> Trips)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="chap4.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb12-7"><a href="chap4.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(State, Region, Purpose))</span></code></pre></div>
+<p><img src="04-time-series-features_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": null,
+"edit": {
+"link": "https://github.com/statisticsplaybook/timeseries-playbook/edit/main/04-time-series-features.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 book_filename: bookdown
-clean: [packages.bib, book.bib, bookdown.bbl]
+clean: [packages.bib, book.bib, bookdown.bbl, reference.bib]
 language:
   label:
     fig: "그림 "
@@ -17,5 +17,8 @@ output_dir: docs
 download: no
 rmd_files: ["index.Rmd",
             "01-intro-to-tsibble.Rmd",
-            "02-mychapter.Rmd",
+            "02-timeseries-decomposition.Rmd",
+            "03-time-series-decomposition.Rmd",
+            "04-time-series-features.Rmd",
+            "05-the-forecasters-toolbox.Rmd",
             "references.Rmd"]

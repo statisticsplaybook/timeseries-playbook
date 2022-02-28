@@ -7,4 +7,5 @@ knitr::opts_chunk$set(
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(fpp3))
 suppressPackageStartupMessages(library(ggthemes))
+suppressPackageStartupMessages(library(knitr))
 theme_set(theme_igray())
